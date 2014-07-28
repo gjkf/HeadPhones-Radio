@@ -130,8 +130,9 @@ public class RadioCrystalGui extends GuiScreen{
 
 			buttonList.add(new GuiButton(ID_PAGE_LEFT, width / 2 - 6, height / 2 + 54, 20, 20, "<"));
 			buttonList.add(new GuiButton(ID_PAGE_RIGHT, width / 2 + 62, height / 2 + 54, 20, 20, ">"));
-			buttonList.add(new GuiButton(ID_CONNECT, width / 2, height / 2 + 54, 44, 20, I18n.format("gui.connect")));
-
+			buttonList.add(new GuiButton(ID_CONNECT, width / 2 - 60, height / 2 + 54, 44, 20, I18n.format("gui.connect")));
+			buttonList.add(new GuiButton(ID_ADD, width / 2 + 16, height / 2 + 54, 44, 20, I18n.format("gui.add")));
+			
 			addToolButton(ID_NONE);
 			addToolButton(ID_FAVOURITE);
 			addToolButton(ID_CATEGORIES);
