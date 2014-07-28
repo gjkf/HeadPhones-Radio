@@ -28,8 +28,6 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
-//TODO https://github.com/iChun/Hats/blob/master/src/main/java/hats/client/gui/GuiHatSelection.java
-
 public class RadioCrystalGui extends GuiScreen{
 
 	private EntityPlayer entityPlayer;
@@ -123,7 +121,7 @@ public class RadioCrystalGui extends GuiScreen{
 		textField = new GuiTextField(this.fontRendererObj, this.width / 2 - 75, height/2- 60, 150, 60);
 		textField.drawTextBox();
 		textField.setMaxStringLength(255);
-		//textField.setEnableBackgroundDrawing(true);
+		textField.setEnableBackgroundDrawing(true);
 		textField.setVisible(enabledTextField);
 		textField.setTextColor(0xFFFFFF);
 		
@@ -131,6 +129,7 @@ public class RadioCrystalGui extends GuiScreen{
 		insertField.drawTextBox();
 		insertField.setMaxStringLength(255);
 		insertField.setVisible(enabledTextField);
+		insertField.setEnableBackgroundDrawing(true);
 		insertField.setTextColor(0xFFFFFF);
 		insertField.setEnabled(true);
 
