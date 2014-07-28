@@ -129,9 +129,10 @@ public class RadioCrystalGui extends GuiScreen{
 		
 		insertField = new GuiTextField(this.fontRendererObj, this.width / 2 - 75, height/2- 80, 150, 10);
 		insertField.drawTextBox();
-		textField.setMaxStringLength(255);
-		textField.setVisible(enabledTextField);
-		textField.setTextColor(0xFFFFFF);
+		insertField.setMaxStringLength(255);
+		insertField.setVisible(enabledTextField);
+		insertField.setTextColor(0xFFFFFF);
+		insertField.setEnabled(true);
 
 	}
 
@@ -171,23 +172,21 @@ public class RadioCrystalGui extends GuiScreen{
 
 	@Override
 	protected void keyTyped(char c, int i){
-		textField.textboxKeyTyped(c, i);
+		insertField.textboxKeyTyped(c, i);
 		if (i == 1){
-			if(textField.isFocused()){
-				textField.setText("");
-				textField.setFocused(false);
-				onTextFieldInteract();
+			if(insertField.isFocused()){
+				insertField.setText(insertField.getText() + c);
+				insertField.setFocused(false);
+				//onTextFieldInteract();
 			}
 			this.mc.setIngameFocus();
-		}
-		if(!textField.isFocused()){
 		}
 	}
 
 	public void onTextFieldInteract(){
 		if(textField.isFocused()){
 			textField.setTextColor(14737632);
-			if(!hasClicked && textField.getText().equalsIgnoreCase(StatCollector.translateToLocal("headphonesradio.gui.search"))){
+			if(!hasClicked && textField.getText().equalsIgnoreCase(StatCollector.translateToLocal("headphonesradio.gui.select"))){
 				hasClicked = true;
 				textField.setText("");
 			}
