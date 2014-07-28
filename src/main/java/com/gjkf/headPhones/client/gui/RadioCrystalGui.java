@@ -50,26 +50,14 @@ public class RadioCrystalGui extends GuiScreen{
 	private final int ID_FAVOURITES = 14;
 
 	private final int ID_CATEGORIES_START = 30;
-
-	private String category = "";
-	private String currentDisplay;
+	
 	private GuiTextField textField;
-	private String selectedButtonName = "";
-	private int favourite;
 
-	private final int VIEW_LINKS = 0;
-	private final int VIEW_COLOURIZER = 1;
-	private final int VIEW_CATEGORIES = 2;
-	private final int VIEW_CATEGORY = 3;
-
-	private boolean invalidFolderName = false;
-	private boolean hasClicked = false;
-	private boolean justClickedButton = false;
-	private boolean addingToCategory = false;
 	private boolean confirmed = false;
 	private boolean adding = false;
 	private boolean renaming = false;
 	private boolean deleting = false;
+	private boolean hasClicked = false;
 
 	private boolean enabledTextField = false;
 
@@ -90,7 +78,7 @@ public class RadioCrystalGui extends GuiScreen{
 	protected int guiLeft;
 	protected int guiTop;
 
-	public int pageNumber;
+	public int pageNumber = 0;
 
 	public String prevLinkName;
 
@@ -103,8 +91,6 @@ public class RadioCrystalGui extends GuiScreen{
 	public RadioCrystalGui(Container inv,EntityPlayer ply){
 		super();
 		this.entityPlayer = ply;
-
-		view = VIEW_LINKS;
 	}
 
 	public void initGui(){
@@ -119,21 +105,25 @@ public class RadioCrystalGui extends GuiScreen{
 			this.guiLeft = (this.width - this.xSize) / 2;
 			this.guiTop = (this.height - this.ySize) / 2;
 
-			buttonList.add(new GuiButton(ID_PAGE_LEFT, width / 2 - 6, height / 2 + 54, 20, 20, "<"));
-			buttonList.add(new GuiButton(ID_PAGE_RIGHT, width / 2 + 62, height / 2 + 54, 20, 20, ">"));
+			buttonList.add(new GuiButton(ID_PAGE_LEFT, width / 2 + 62, height / 2 + 54, 20, 20, ">"));
+			buttonList.add(new GuiButton(ID_PAGE_RIGHT, width / 2 - 6, height / 2 + 54, 20, 20, "<"));
 			buttonList.add(new GuiButton(ID_CONNECT, width / 2 - 60, height / 2 + 54, 44, 20,"Connect"));
 			buttonList.add(new GuiButton(ID_ADD, width / 2 + 16, height / 2 + 54, 44, 20, "Add"));
 			buttonList.add(new GuiButton(ID_CLOSE, width - 22, 2, 20, 20, "X"));
-			
-			pageNumber = 0;
-
-			textField = new GuiTextField(this.fontRendererObj, this.width / 2, height/2, 150, 200);
-			textField.setMaxStringLength(255);
-			textField.setEnableBackgroundDrawing(true);
-			textField.setVisible(enabledTextField);
-			textField.setTextColor(0xFFFFFF);
-
 		}
+	}
+
+	@Override
+	public void drawScreen(int p_73863_1_, int p_73863_2_, float p_73863_3_){
+		super.drawScreen(p_73863_1_, p_73863_2_, p_73863_3_);
+		initGui();
+		textField = new GuiTextField(this.fontRendererObj, this.width / 2 - 60, height/2- 60, 150, 60);
+		textField.drawTextBox();
+		textField.setMaxStringLength(255);
+		textField.setEnableBackgroundDrawing(true);
+		textField.setVisible(enabledTextField);
+		textField.setTextColor(0xFFFFFF);
+
 	}
 
 	@Override
@@ -160,8 +150,12 @@ public class RadioCrystalGui extends GuiScreen{
 			LogHelper.info("Connecting to: "+ textField.getText());
 		}else if(btn.id == ID_PAGE_LEFT){
 			pageNumber++;
+			System.err.println(pageNumber);
 		}else if(btn.id == ID_PAGE_RIGHT){
-			pageNumber--;
+			if(pageNumber>0){				
+				pageNumber--;
+				System.err.println(pageNumber);
+			}
 		}
 
 	}
