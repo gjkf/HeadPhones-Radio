@@ -11,6 +11,7 @@ import org.lwjgl.opengl.GL11;
 import com.gjkf.headPhones.Link;
 import com.gjkf.headPhones.handler.LinkHandler;
 import com.gjkf.headPhones.items.RadioCrystalContainer;
+import com.gjkf.headPhones.utility.LogHelper;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -344,4 +345,25 @@ public class RadioCrystalGui extends GuiScreen{
 		}
 		
 	}
+	
+	public void exitAndUpdate(){
+    	confirmed = true;
+		mc.displayGuiScreen(null);
+    }
+	
+	@Override
+	protected void actionPerformed(GuiButton btn){
+		
+		if(btn.id == ID_CLOSE){
+			exitAndUpdate();
+		}else if(btn.id == ID_CONNECT){
+			LogHelper.info("Connecting to: "+ textField.getText());
+		}else if(btn.id == ID_PAGE_LEFT){
+			pageNumber++;
+		}else if(btn.id == ID_PAGE_RIGHT){
+			pageNumber--;
+		}
+		
+	}
+	
 }
