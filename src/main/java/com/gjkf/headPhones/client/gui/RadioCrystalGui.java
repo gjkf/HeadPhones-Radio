@@ -52,7 +52,8 @@ public class RadioCrystalGui extends GuiScreen{
 	private final int ID_CATEGORIES_START = 30;
 	
 	private GuiTextField textField;
-
+	private GuiTextField insertField;
+	
 	private boolean confirmed = false;
 	private boolean adding = false;
 	private boolean renaming = false;
@@ -105,10 +106,12 @@ public class RadioCrystalGui extends GuiScreen{
 			this.guiLeft = (this.width - this.xSize) / 2;
 			this.guiTop = (this.height - this.ySize) / 2;
 
-			buttonList.add(new GuiButton(ID_PAGE_LEFT, width / 2 + 62, height / 2 + 54, 20, 20, ">"));
-			buttonList.add(new GuiButton(ID_PAGE_RIGHT, width / 2 - 6, height / 2 + 54, 20, 20, "<"));
-			buttonList.add(new GuiButton(ID_CONNECT, width / 2 - 60, height / 2 + 54, 44, 20,"Connect"));
-			buttonList.add(new GuiButton(ID_ADD, width / 2 + 16, height / 2 + 54, 44, 20, "Add"));
+			buttonList.add(new GuiButton(ID_PAGE_LEFT, width / 2 + 47, height / 2 + 54, 20, 20, ">"));
+			buttonList.add(new GuiButton(ID_PAGE_RIGHT, width / 2 - 21, height / 2 + 54, 20, 20, "<"));
+			buttonList.add(new GuiButton(ID_CONNECT, width / 2 - 91, height / 2 + 54, 44, 20,"Connect"));
+			buttonList.add(new GuiButton(ID_ADD, width / 2 + 1, height / 2 + 54, 44, 20, "Add"));
+			buttonList.add(new GuiButton(ID_DELETE, width / 2 + 1, height / 2 + 24, 44, 20, "Delete"));
+			buttonList.add(new GuiButton(ID_FAVOURITE, width / 2 - 95, height / 2 + 24, 52, 20, "Favourite"));
 			buttonList.add(new GuiButton(ID_CLOSE, width - 22, 2, 20, 20, "X"));
 		}
 	}
@@ -117,10 +120,16 @@ public class RadioCrystalGui extends GuiScreen{
 	public void drawScreen(int p_73863_1_, int p_73863_2_, float p_73863_3_){
 		super.drawScreen(p_73863_1_, p_73863_2_, p_73863_3_);
 		initGui();
-		textField = new GuiTextField(this.fontRendererObj, this.width / 2 - 60, height/2- 60, 150, 60);
+		textField = new GuiTextField(this.fontRendererObj, this.width / 2 - 75, height/2- 60, 150, 60);
 		textField.drawTextBox();
 		textField.setMaxStringLength(255);
-		textField.setEnableBackgroundDrawing(true);
+		//textField.setEnableBackgroundDrawing(true);
+		textField.setVisible(enabledTextField);
+		textField.setTextColor(0xFFFFFF);
+		
+		insertField = new GuiTextField(this.fontRendererObj, this.width / 2 - 75, height/2- 80, 150, 10);
+		insertField.drawTextBox();
+		textField.setMaxStringLength(255);
 		textField.setVisible(enabledTextField);
 		textField.setTextColor(0xFFFFFF);
 
