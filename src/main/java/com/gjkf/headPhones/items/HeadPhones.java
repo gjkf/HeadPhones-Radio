@@ -36,7 +36,7 @@ public class HeadPhones extends ItemArmor{
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player){
 		if (player.isSneaking()){
-			player.openGui(Main.instance, References.GUI_ID, world, (int)player.posX, (int)player.posY, (int)player.posZ);
+			player.openGui(Main.instance, References.GUI_HEADPHONES_ID, world, (int)player.posX, (int)player.posY, (int)player.posZ);
 			LogHelper.info("Succesfully opened GUI");
 		}
 

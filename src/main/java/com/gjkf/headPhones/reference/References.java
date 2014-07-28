@@ -9,5 +9,6 @@ public class References {
 	public static final String CLIENT_PROXY_CLASS = "com.gjkf.headPhones.proxy.ClientProxy";
 	public static final String SERVER_PROXY_CLASS = "com.gjkf.headPhones.proxy.ServerProxy";
 	public static final String COMMON_PROXY_CLASS = "com.gjkf.headPhones.proxy.CommonProxy";
-	public static final int GUI_ID = 1000;
+	public static final int GUI_HEADPHONES_ID = 1000;
+	public static final int GUI_CRYSTAL_ID = 1001;
 }

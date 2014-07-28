@@ -10,9 +10,10 @@ import net.minecraft.inventory.Slot;
 public class RadioCrystalContainer extends Container{
 
 	private InventoryPlayer playerInv;
+	public static Container crystal;
 	
 	public RadioCrystalContainer(Container inv1, InventoryPlayer inv2) {
-
+		this.crystal = inv1;
 		this.playerInv = inv2;
 		
 		// Player Inventory

@@ -21,7 +21,7 @@ public class RadioCrystal extends Item{
 	@Override
 	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player){
 			if (player.isSneaking()) {
-				
+				player.openGui(Main.instance, References.GUI_CRYSTAL_ID, world, (int)player.posX, (int)player.posY, (int)player.posZ);
 				LogHelper.info("Succesfully opened GUI");
 			}
 		return itemStack;

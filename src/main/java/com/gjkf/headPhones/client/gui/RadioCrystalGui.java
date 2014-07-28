@@ -8,6 +8,7 @@ import java.util.Random;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
+import com.gjkf.headPhones.Link;
 import com.gjkf.headPhones.handler.LinkHandler;
 import com.gjkf.headPhones.items.RadioCrystalContainer;
 
@@ -45,6 +46,7 @@ public class RadioCrystalGui extends GuiScreen{
 	private final int ID_NONE = 11;
 	private final int ID_CATEGORIES = 12;
 	private final int ID_CLOSE = 13;
+	private final int ID_FAVOURITES = 14;
 
 	private final int ID_CATEGORIES_START = 30;
 
@@ -54,17 +56,23 @@ public class RadioCrystalGui extends GuiScreen{
 	private String selectedButtonName = "";
 	private int favourite;
 
+	private final int VIEW_LINKS = 0;
 	private final int VIEW_COLOURIZER = 1;
 	private final int VIEW_CATEGORIES = 2;
 	private final int VIEW_CATEGORY = 3;
 
+	private boolean invalidFolderName = false;
 	private boolean hasClicked = false;
 	private boolean justClickedButton = false;
+	private boolean addingToCategory = false;
 	private boolean confirmed = false;
 	private boolean adding = false;
 	private boolean renaming = false;
+	private boolean deleting = false;
 
 	private boolean enabledTextField = false;
+
+	private static final String[] invalidChars = new String[] { "\\", "*", "?", "\"", "<", ">", "|", "!"};
 
 	public List<String> availableLinks;
 	public List<String> linksToShow;
@@ -105,7 +113,7 @@ public class RadioCrystalGui extends GuiScreen{
 
 		ArrayList<String> list = new ArrayList<String>();
 
-
+		view = VIEW_LINKS;
 	}
 
 	public void initGui(){
@@ -122,7 +130,7 @@ public class RadioCrystalGui extends GuiScreen{
 
 			buttonList.add(new GuiButton(ID_PAGE_LEFT, width / 2 - 6, height / 2 + 54, 20, 20, "<"));
 			buttonList.add(new GuiButton(ID_PAGE_RIGHT, width / 2 + 62, height / 2 + 54, 20, 20, ">"));
-			buttonList.add(new GuiButton(ID_CONNECT, width / 2 + 16, height / 2 + 54, 44, 20, I18n.format("gui.connect")));
+			buttonList.add(new GuiButton(ID_CONNECT, width / 2, height / 2 + 54, 44, 20, I18n.format("gui.connect")));
 
 			addToolButton(ID_NONE);
 			addToolButton(ID_FAVOURITE);
@@ -172,89 +180,7 @@ public class RadioCrystalGui extends GuiScreen{
 
 	@Override
 	protected void keyTyped(char c, int i){
-		textField.textboxKeyTyped(c, i);
-		if(textField.isFocused()){
-			onSearch();
-		}
-		if (i == 1){
-			if(textField.isFocused()){
-				textField.setText("");
-				textField.setFocused(false);
-				ontextFieldInteract();
-			}else{
-				exitWithoutUpdate();
 
-				this.mc.setIngameFocus();
-			}
-		}
-		if(!textField.isFocused()){
-			GameSettings gameSettings = Minecraft.getMinecraft().gameSettings;
-			if(i == Keyboard.KEY_R){
-				mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("gui.button.press"), 1.0F));
-				randomize();
-			}
-			else if(i == Keyboard.KEY_TAB || i == gameSettings.keyBindChat.getKeyCode())
-			{
-				textField.setFocused(true);
-				ontextFieldInteract();
-			}else if(i == Keyboard.KEY_H && !(hat.hatName.equalsIgnoreCase("") && view == VIEW_HATS)){
-				mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("gui.button.press"), 1.0F));
-				toggleHatsColourizer();
-			}else if(i == Keyboard.KEY_N && !hat.hatName.equalsIgnoreCase("")){
-				mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("gui.button.press"), 1.0F));
-				removeHat();
-			}else if(i == Keyboard.KEY_C){
-				mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("gui.button.press"), 1.0F));
-				showCategories();
-			}else if(i == Keyboard.KEY_F){
-				mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("gui.button.press"), 1.0F));
-				if((view == VIEW_HATS || view == VIEW_CATEGORY) && isShiftKeyDown()){
-					String s = "";
-
-					for(String hat1 : availableLinks){
-						if(hat1.toLowerCase().equalsIgnoreCase(hat.hatName)){
-							s = hat1;
-						}
-					}
-
-					if(!s.equalsIgnoreCase("")){
-						if(LinkHandler.isInFavourites(s)){
-							LinkHandler.removeFromCategory(s, "Favourites");
-						}else{
-							LinkHandler.addToCategory(s, "Favourites");
-						}
-
-						if(view == VIEW_CATEGORY && category.equalsIgnoreCase("Favourites")){
-							showCategory("Favourites");
-						}
-						favourite = 6;
-					}
-				}else{
-					showCategory("Favourites");
-				}
-			}else if(i == Keyboard.KEY_P){
-				mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("gui.button.press"), 1.0F));
-				personalize();
-			}
-			if(view == VIEW_HATS){
-				if((i == gameSettings.keyBindLeft.getKeyCode() || i == Keyboard.KEY_LEFT) && pageNumber > 0){
-					mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("gui.button.press"), 1.0F));
-					switchPage(true);
-				}else if((i == gameSettings.keyBindRight.getKeyCode() || i == Keyboard.KEY_RIGHT) && !((pageNumber + 1) * 6 >= linksToShow.size())){
-					mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("gui.button.press"), 1.0F));
-					switchPage(false);
-				}
-			}
-		}else{
-			if(i == Keyboard.KEY_RETURN && (adding || renaming) && view == VIEW_CATEGORIES && !invalidFolderName){
-				if(adding && addCategory(textField.getText().trim()) || renaming && renameCategory(selectedButtonName, textField.getText().trim())){
-					textField.setText("");
-					ontextFieldInteract();
-
-					updateButtonList();
-				}
-			}
-		}
 	}
 
 	public void onSearch(){
@@ -273,7 +199,7 @@ public class RadioCrystalGui extends GuiScreen{
 					invalidFolderName = true;
 				}
 			}
-			if(textField.getText().equalsIgnoreCase("Favourites") || textField.getText().equalsIgnoreCase(StatCollector.translateToLocal("hats.gui.allHats")) || textField.getText().equalsIgnoreCase(StatCollector.translateToLocal("hats.gui.addNew"))){
+			if(textField.getText().equalsIgnoreCase("Favourites") || textField.getText().equalsIgnoreCase(StatCollector.translateToLocal("headphonesradio.gui.allLinks")) || textField.getText().equalsIgnoreCase(StatCollector.translateToLocal("headphonesradio.gui.addNew"))){
 				textField.setTextColor(0xFF5555);
 				invalidFolderName = true;
 			}
@@ -290,17 +216,17 @@ public class RadioCrystalGui extends GuiScreen{
 		}else{
 			if(textField.getText().equalsIgnoreCase("") || !hasClicked && textField.getText().equalsIgnoreCase(StatCollector.translateToLocal("hats.gui.search"))){
 				textField.setTextColor(14737632);
-				linksToShow = new ArrayList<String>(view == VIEW_HATS ? availableLinks : view == VIEW_CATEGORY ? categoryLink : categories);
+				linksToShow = new ArrayList<String>(view == VIEW_LINKS ? availableLinks : view == VIEW_CATEGORY ? categoryLink : categories);
 				Collections.sort(linksToShow);
 				if(view == VIEW_CATEGORIES){
-					linksToShow.add(0, StatCollector.translateToLocal("hats.gui.allHats"));
-					linksToShow.add(StatCollector.translateToLocal("hats.gui.addNew"));
+					linksToShow.add(0, StatCollector.translateToLocal("headphonesradio.gui.allLinks"));
+					linksToShow.add(StatCollector.translateToLocal("headphonesradio.gui.addNew"));
 				}
 			}else{
 				String query = textField.getText();
 				ArrayList<String> matches = new ArrayList<String>();
-				for(String s : (view == VIEW_HATS ? availableLinks : view == VIEW_CATEGORY ? categoryLink : categories)){
-					if(view == VIEW_CATEGORIES && (s.equalsIgnoreCase(StatCollector.translateToLocal("hats.gui.allHats")) || s.equalsIgnoreCase(StatCollector.translateToLocal("hats.gui.addNew")))){
+				for(String s : (view == VIEW_LINKS ? availableLinks : view == VIEW_CATEGORY ? categoryLink : categories)){
+					if(view == VIEW_CATEGORIES && (s.equalsIgnoreCase(StatCollector.translateToLocal("headphonesradio.gui.allLinks")) || s.equalsIgnoreCase(StatCollector.translateToLocal("hats.gui.addNew")))){
 						continue;
 					}
 					if(s.toLowerCase().startsWith(query.toLowerCase())){
@@ -321,7 +247,7 @@ public class RadioCrystalGui extends GuiScreen{
 				}
 				if(matches.size() == 0){
 					textField.setTextColor(0xFF5555);
-					linksToShow = new ArrayList<String>(view == VIEW_HATS ? availableLinks : view == VIEW_CATEGORY ? categoryLink : categories);
+					linksToShow = new ArrayList<String>(view == VIEW_LINKS ? availableLinks : view == VIEW_CATEGORY ? categoryLink : categories);
 					Collections.sort(linksToShow);
 					if(view == VIEW_CATEGORIES){
 						linksToShow.add(0, StatCollector.translateToLocal("hats.gui.allHats"));
@@ -337,5 +263,84 @@ public class RadioCrystalGui extends GuiScreen{
 
 			updateButtonList();
 		}
+	}
+
+	public void updateButtonList()
+	{
+		adding = false;
+		deleting = false;
+		renaming = false;
+		if(view != VIEW_CATEGORIES)
+		{
+			addingToCategory = false;
+		}
+
+		for (int k1 = buttonList.size() - 1; k1 >= 0; k1--)
+		{
+			GuiButton btn = (GuiButton)this.buttonList.get(k1);
+
+			if(btn.id >= 5 && btn.id <= 7 || btn.id == 29 || btn.id >= ID_CATEGORIES_START || btn.id == ID_ADD || btn.id == ID_CANCEL || btn.id == ID_RENAME || btn.id == ID_DELETE || btn.id == ID_FAVOURITE)
+			{
+				buttonList.remove(k1);
+			}
+			else if(btn.id == ID_PAGE_LEFT)
+			{
+				if(pageNumber == 0)
+				{
+					btn.enabled = false;
+				}
+				else
+				{
+					btn.enabled = true;
+				}
+			}
+			else if(btn.id == ID_PAGE_RIGHT)
+			{
+				if((pageNumber + 1) * 6 >= linksToShow.size())
+				{
+					btn.enabled = false;
+				}
+				else
+				{
+					btn.enabled = true;
+				}
+			}
+			else if(btn.id == ID_NONE)
+			{
+				for(int j = 0; j<link.linkName.length; j++){
+					if(link.linkName[j].equalsIgnoreCase(""))
+					{
+						btn.enabled = false;
+					}
+					else
+					{
+						btn.enabled = true;
+					}
+				}
+			}
+			else if(btn.id == ID_CATEGORIES)
+			{
+				if(view == VIEW_CATEGORIES)
+				{
+					btn.enabled = false;
+				}
+				else
+				{
+					btn.enabled = true;
+				}
+			}
+			else if(btn.id == ID_FAVOURITES)
+			{
+				if(view == VIEW_CATEGORY && category.equalsIgnoreCase("Favourites"))
+				{
+					btn.enabled = false;
+				}
+				else
+				{
+					btn.enabled = true;
+				}
+			}
+		}
+		
 	}
 }
