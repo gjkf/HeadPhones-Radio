@@ -171,30 +171,32 @@ public class RadioCrystalGui extends GuiScreen{
 
 	@Override
 	protected void keyTyped(char c, int i){
-		insertField.textboxKeyTyped(c, i);
 		if (i == 1){
 			if(insertField.isFocused()){
+				insertField.textboxKeyTyped(c, i);
 				insertField.setText(insertField.getText() + c);
 				insertField.setFocused(false);
-				//onTextFieldInteract();
+				onInsertFieldInteract();
+			}else{
+				insertField.setFocused(true);
 			}
 			this.mc.setIngameFocus();
 		}
 	}
 
-	public void onTextFieldInteract(){
-		if(textField.isFocused()){
-			textField.setTextColor(14737632);
-			if(!hasClicked && textField.getText().equalsIgnoreCase(StatCollector.translateToLocal("headphonesradio.gui.select"))){
+	public void onInsertFieldInteract(){
+		if(insertField.isFocused()){
+			insertField.setTextColor(14737632);
+			if(!hasClicked && insertField.getText().equalsIgnoreCase(StatCollector.translateToLocal("headphonesradio.gui.select"))){
 				hasClicked = true;
-				textField.setText("");
+				insertField.setText("");
 			}
 		}else{
-			textField.setTextColor(0xAAAAAA);
-			if(textField.getText().equalsIgnoreCase("")){
+			insertField.setTextColor(0xAAAAAA);
+			if(insertField.getText().equalsIgnoreCase("")){
 				hasClicked = false;
 				if(!adding && !renaming){
-					textField.setText(StatCollector.translateToLocal("hats.gui.search"));
+					insertField.setText(StatCollector.translateToLocal("hats.gui.search"));
 				}
 			}
 		}    	
