@@ -125,11 +125,6 @@ public class RadioCrystalGui extends GuiScreen{
 			buttonList.add(new GuiButton(ID_PAGE_RIGHT, width / 2 + 62, height / 2 + 54, 20, 20, ">"));
 			buttonList.add(new GuiButton(ID_CONNECT, width / 2 - 60, height / 2 + 54, 44, 20, I18n.format("gui.connect")));
 			buttonList.add(new GuiButton(ID_ADD, width / 2 + 16, height / 2 + 54, 44, 20, I18n.format("gui.add")));
-			
-			addToolButton(ID_NONE);
-			addToolButton(ID_FAVOURITE);
-			addToolButton(ID_CATEGORIES);
-
 			buttonList.add(new GuiButton(ID_CLOSE, width - 22, 2, 20, 20, "X"));
 
 			pageNumber = 0;
@@ -142,23 +137,7 @@ public class RadioCrystalGui extends GuiScreen{
 
 		}
 	}
-
-	public void addToolButton(int id){
-		boolean enabled = false;
-		for(int i = 0; i < enabledButtons.size(); i++){
-			if(enabledButtons.get(i).equalsIgnoreCase(Integer.toString(id - (ID_NONE - 1)))){
-				buttonList.add(new GuiButton(id, width / 2 + 89, height / 2 - 85 + (i * 21), 20, 20, ""));
-				enabled = true;
-				break;
-			}
-		}
-		if(!enabled){
-			GuiButton btn = new GuiButton(id, width - 24, height / 2 - 93 + ((id - 8) * 21), 20, 20, "");
-			btn.visible = false;
-			buttonList.add(btn);
-		}
-	}
-
+	
 	@Override
 	public void updateScreen(){
 		textField.updateCursorCounter();
@@ -172,172 +151,6 @@ public class RadioCrystalGui extends GuiScreen{
 		}
 	}
 
-	@Override
-	protected void keyTyped(char c, int i){
-
-	}
-
-	public void onSearch(){
-		if(adding || renaming){
-			invalidFolderName = false;
-			textField.setTextColor(14737632);
-			for(String s : categories){
-				if(s.equalsIgnoreCase(textField.getText())){
-					textField.setTextColor(0xFF5555);
-					invalidFolderName = true;
-				}
-			}
-			for(String s : invalidChars){
-				if(textField.getText().contains(s)){
-					textField.setTextColor(0xFF5555);
-					invalidFolderName = true;
-				}
-			}
-			if(textField.getText().equalsIgnoreCase("Favourites") || textField.getText().equalsIgnoreCase(StatCollector.translateToLocal("headphonesradio.gui.allLinks")) || textField.getText().equalsIgnoreCase(StatCollector.translateToLocal("headphonesradio.gui.addNew"))){
-				textField.setTextColor(0xFF5555);
-				invalidFolderName = true;
-			}
-			if(textField.getText().equalsIgnoreCase("")){
-				invalidFolderName = true;    			
-			}
-			for(int k = 0; k < buttonList.size(); k++){
-				GuiButton btn = (GuiButton)buttonList.get(k);
-				if(btn.id == ID_ADD){
-					btn.enabled = !invalidFolderName;
-					break;
-				}
-			}
-		}else{
-			if(textField.getText().equalsIgnoreCase("") || !hasClicked && textField.getText().equalsIgnoreCase(StatCollector.translateToLocal("hats.gui.search"))){
-				textField.setTextColor(14737632);
-				linksToShow = new ArrayList<String>(view == VIEW_LINKS ? availableLinks : view == VIEW_CATEGORY ? categoryLink : categories);
-				Collections.sort(linksToShow);
-				if(view == VIEW_CATEGORIES){
-					linksToShow.add(0, StatCollector.translateToLocal("headphonesradio.gui.allLinks"));
-					linksToShow.add(StatCollector.translateToLocal("headphonesradio.gui.addNew"));
-				}
-			}else{
-				String query = textField.getText();
-				ArrayList<String> matches = new ArrayList<String>();
-				for(String s : (view == VIEW_LINKS ? availableLinks : view == VIEW_CATEGORY ? categoryLink : categories)){
-					if(view == VIEW_CATEGORIES && (s.equalsIgnoreCase(StatCollector.translateToLocal("headphonesradio.gui.allLinks")) || s.equalsIgnoreCase(StatCollector.translateToLocal("hats.gui.addNew")))){
-						continue;
-					}
-					if(s.toLowerCase().startsWith(query.toLowerCase())){
-						if(!matches.contains(s)){
-							matches.add(s);
-						}
-					}else{
-						String[] split = s.split(" ");
-						for(String s1 : split){
-							if(s1.toLowerCase().startsWith(query.toLowerCase())){
-								if(!matches.contains(s)){
-									matches.add(s);
-								}
-								break;
-							}
-						}
-					}
-				}
-				if(matches.size() == 0){
-					textField.setTextColor(0xFF5555);
-					linksToShow = new ArrayList<String>(view == VIEW_LINKS ? availableLinks : view == VIEW_CATEGORY ? categoryLink : categories);
-					Collections.sort(linksToShow);
-					if(view == VIEW_CATEGORIES){
-						linksToShow.add(0, StatCollector.translateToLocal("hats.gui.allHats"));
-						linksToShow.add(StatCollector.translateToLocal("hats.gui.addNew"));
-					}
-				}else{
-					textField.setTextColor(14737632);
-					pageNumber = 0;
-					linksToShow = new ArrayList<String>(matches);
-					Collections.sort(linksToShow);
-				}
-			}
-
-			updateButtonList();
-		}
-	}
-
-	public void updateButtonList()
-	{
-		adding = false;
-		deleting = false;
-		renaming = false;
-		if(view != VIEW_CATEGORIES)
-		{
-			addingToCategory = false;
-		}
-
-		for (int k1 = buttonList.size() - 1; k1 >= 0; k1--)
-		{
-			GuiButton btn = (GuiButton)this.buttonList.get(k1);
-
-			if(btn.id >= 5 && btn.id <= 7 || btn.id == 29 || btn.id >= ID_CATEGORIES_START || btn.id == ID_ADD || btn.id == ID_CANCEL || btn.id == ID_RENAME || btn.id == ID_DELETE || btn.id == ID_FAVOURITE)
-			{
-				buttonList.remove(k1);
-			}
-			else if(btn.id == ID_PAGE_LEFT)
-			{
-				if(pageNumber == 0)
-				{
-					btn.enabled = false;
-				}
-				else
-				{
-					btn.enabled = true;
-				}
-			}
-			else if(btn.id == ID_PAGE_RIGHT)
-			{
-				if((pageNumber + 1) * 6 >= linksToShow.size())
-				{
-					btn.enabled = false;
-				}
-				else
-				{
-					btn.enabled = true;
-				}
-			}
-			else if(btn.id == ID_NONE)
-			{
-				for(int j = 0; j<link.linkName.length; j++){
-					if(link.linkName[j].equalsIgnoreCase(""))
-					{
-						btn.enabled = false;
-					}
-					else
-					{
-						btn.enabled = true;
-					}
-				}
-			}
-			else if(btn.id == ID_CATEGORIES)
-			{
-				if(view == VIEW_CATEGORIES)
-				{
-					btn.enabled = false;
-				}
-				else
-				{
-					btn.enabled = true;
-				}
-			}
-			else if(btn.id == ID_FAVOURITES)
-			{
-				if(view == VIEW_CATEGORY && category.equalsIgnoreCase("Favourites"))
-				{
-					btn.enabled = false;
-				}
-				else
-				{
-					btn.enabled = true;
-				}
-			}
-		}
-		
-	}
-	
 	public void exitAndUpdate(){
     	confirmed = true;
 		mc.displayGuiScreen(null);
