@@ -91,16 +91,8 @@ public class RadioCrystalGui extends GuiScreen{
 	protected int guiTop;
 
 	public int pageNumber;
-	public int colourR;
-	public int colourG;
-	public int colourB;
-	public int alpha;
 
 	public String prevLinkName;
-	public int prevcolourR;
-	public int prevcolourG;
-	public int prevcolourB;
-	public int prevalpha;
 
 	public int view;
 
