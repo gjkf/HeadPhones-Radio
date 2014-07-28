@@ -104,8 +104,6 @@ public class RadioCrystalGui extends GuiScreen{
 		super();
 		this.entityPlayer = ply;
 
-		ArrayList<String> list = new ArrayList<String>();
-
 		view = VIEW_LINKS;
 	}
 
@@ -123,21 +121,21 @@ public class RadioCrystalGui extends GuiScreen{
 
 			buttonList.add(new GuiButton(ID_PAGE_LEFT, width / 2 - 6, height / 2 + 54, 20, 20, "<"));
 			buttonList.add(new GuiButton(ID_PAGE_RIGHT, width / 2 + 62, height / 2 + 54, 20, 20, ">"));
-			buttonList.add(new GuiButton(ID_CONNECT, width / 2 - 60, height / 2 + 54, 44, 20, I18n.format("gui.connect")));
-			buttonList.add(new GuiButton(ID_ADD, width / 2 + 16, height / 2 + 54, 44, 20, I18n.format("gui.add")));
+			buttonList.add(new GuiButton(ID_CONNECT, width / 2 - 60, height / 2 + 54, 44, 20,"Connect"));
+			buttonList.add(new GuiButton(ID_ADD, width / 2 + 16, height / 2 + 54, 44, 20, "Add"));
 			buttonList.add(new GuiButton(ID_CLOSE, width - 22, 2, 20, 20, "X"));
-
+			
 			pageNumber = 0;
 
-			textField = new GuiTextField(this.fontRendererObj, this.width / 2 - 65, height - 24, 150, 20);
+			textField = new GuiTextField(this.fontRendererObj, this.width / 2, height/2, 150, 200);
 			textField.setMaxStringLength(255);
-			textField.setText(StatCollector.translateToLocal("headphonesradio.gui.search"));
+			textField.setEnableBackgroundDrawing(true);
 			textField.setVisible(enabledTextField);
-			textField.setTextColor(0xAAAAAA);
+			textField.setTextColor(0xFFFFFF);
 
 		}
 	}
-	
+
 	@Override
 	public void updateScreen(){
 		textField.updateCursorCounter();
@@ -146,19 +144,16 @@ public class RadioCrystalGui extends GuiScreen{
 		}else{
 			textField.setVisible(enabledTextField);
 		}
-		if(favourite > 0){
-			favourite--;
-		}
 	}
 
 	public void exitAndUpdate(){
-    	confirmed = true;
+		confirmed = true;
 		mc.displayGuiScreen(null);
-    }
-	
+	}
+
 	@Override
 	protected void actionPerformed(GuiButton btn){
-		
+
 		if(btn.id == ID_CLOSE){
 			exitAndUpdate();
 		}else if(btn.id == ID_CONNECT){
@@ -168,7 +163,39 @@ public class RadioCrystalGui extends GuiScreen{
 		}else if(btn.id == ID_PAGE_RIGHT){
 			pageNumber--;
 		}
-		
+
 	}
-	
+
+	@Override
+	protected void keyTyped(char c, int i){
+		textField.textboxKeyTyped(c, i);
+		if (i == 1){
+			if(textField.isFocused()){
+				textField.setText("");
+				textField.setFocused(false);
+				onTextFieldInteract();
+			}
+			this.mc.setIngameFocus();
+		}
+		if(!textField.isFocused()){
+		}
+	}
+
+	public void onTextFieldInteract(){
+		if(textField.isFocused()){
+			textField.setTextColor(14737632);
+			if(!hasClicked && textField.getText().equalsIgnoreCase(StatCollector.translateToLocal("headphonesradio.gui.search"))){
+				hasClicked = true;
+				textField.setText("");
+			}
+		}else{
+			textField.setTextColor(0xAAAAAA);
+			if(textField.getText().equalsIgnoreCase("")){
+				hasClicked = false;
+				if(!adding && !renaming){
+					textField.setText(StatCollector.translateToLocal("hats.gui.search"));
+				}
+			}
+		}    	
+	}
 }
