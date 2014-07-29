@@ -1,7 +1,6 @@
 package com.gjkf.headPhones.client.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 import com.gjkf.headPhones.items.HeadPhonesContainer;
