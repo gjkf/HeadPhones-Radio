@@ -25,13 +25,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
 public class RadioCrystalGui extends GuiScreen{
-
-	private EntityPlayer entityPlayer;
 
 	private final int ID_PAGE_LEFT = 1;
 	private final int ID_PAGE_RIGHT = 2;
@@ -71,7 +68,7 @@ public class RadioCrystalGui extends GuiScreen{
 	public List<String> categoryLink = new ArrayList<String>();
 	public List<String> enabledButtons = new ArrayList<String>();
 
-	public ItemStack crystal;
+	public EntityPlayer player;
 	public Link link;
 
 	protected int xSize = 256;
@@ -82,15 +79,15 @@ public class RadioCrystalGui extends GuiScreen{
 
 	public int pageNumber = 0;
 
-	public RadioCrystalGui(Container inv, ItemStack radioCrystal){
+	public RadioCrystalGui(Container inv, EntityPlayer ply){
 		super();
-		this.crystal = radioCrystal;
+		this.player = ply;
 	}
 
 	public void initGui(){
 		super.initGui();
 
-		if(entityPlayer == null){
+		if(player == null){
 			mc.displayGuiScreen(null);
 		}else{
 			Keyboard.enableRepeatEvents(true);
@@ -111,6 +108,7 @@ public class RadioCrystalGui extends GuiScreen{
 
 	@Override
 	public void drawScreen(int p_73863_1_, int p_73863_2_, float p_73863_3_){
+		
 		super.drawScreen(p_73863_1_, p_73863_2_, p_73863_3_);
 		initGui();
 		textField = new GuiTextField(this.fontRendererObj, this.width / 2 - 75, height/2- 60, 150, 60);
