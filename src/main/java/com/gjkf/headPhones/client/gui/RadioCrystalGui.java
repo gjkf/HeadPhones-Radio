@@ -48,10 +48,10 @@ public class RadioCrystalGui extends GuiScreen{
 	private final int ID_FAVOURITES = 14;
 
 	private final int ID_CATEGORIES_START = 30;
-	
+
 	private GuiTextField textField;
 	private GuiTextField insertField;
-	
+
 	private boolean confirmed = false;
 	private boolean adding = false;
 	private boolean renaming = false;
@@ -122,9 +122,9 @@ public class RadioCrystalGui extends GuiScreen{
 		textField.drawTextBox();
 		textField.setMaxStringLength(255);
 		textField.setEnableBackgroundDrawing(true);
-		textField.setVisible(enabledTextField);
+		textField.setVisible(true);
 		textField.setTextColor(0xFFFFFF);
-		
+
 		insertField = new GuiTextField(this.fontRendererObj, this.width / 2 - 75, height/2- 80, 150, 10);
 		insertField.drawTextBox();
 		insertField.setMaxStringLength(255);
@@ -134,7 +134,7 @@ public class RadioCrystalGui extends GuiScreen{
 		insertField.setEnabled(true);
 
 	}
-	
+
 	@Override
 	public boolean doesGuiPauseGame(){
 		return false;
@@ -179,11 +179,11 @@ public class RadioCrystalGui extends GuiScreen{
 		if (i == 1){
 			if(insertField.isFocused()){
 				insertField.textboxKeyTyped(c, i);
-				insertField.setText(insertField.getText() + c);
-				insertField.setFocused(false);
+				insertField.setText(textField.getText()+c);
 				onInsertFieldInteract();
 			}else{
 				insertField.setFocused(true);
+				super.keyTyped(c, i);
 			}
 			this.mc.setIngameFocus();
 		}
@@ -192,16 +192,16 @@ public class RadioCrystalGui extends GuiScreen{
 	public void onInsertFieldInteract(){
 		if(insertField.isFocused()){
 			insertField.setTextColor(14737632);
-			if(!hasClicked && insertField.getText().equalsIgnoreCase(StatCollector.translateToLocal("headphonesradio.gui.select"))){
+			insertField.setText("Test");
+			if(!hasClicked){
 				hasClicked = true;
-				insertField.setText("");
 			}
 		}else{
 			insertField.setTextColor(0xAAAAAA);
 			if(insertField.getText().equalsIgnoreCase("")){
 				hasClicked = false;
 				if(!adding && !renaming){
-					insertField.setText(StatCollector.translateToLocal("hats.gui.search"));
+					insertField.setText("");
 				}
 			}
 		}    	
