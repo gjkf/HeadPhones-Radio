@@ -25,6 +25,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
@@ -51,6 +52,8 @@ public class RadioCrystalGui extends GuiScreen{
 
 	private GuiTextField textField;
 	private GuiTextField insertField;
+	public String textFieldText = "";
+	public String insertFieldText = "";
 
 	private boolean confirmed = false;
 	private boolean adding = false;
@@ -68,7 +71,7 @@ public class RadioCrystalGui extends GuiScreen{
 	public List<String> categoryLink = new ArrayList<String>();
 	public List<String> enabledButtons = new ArrayList<String>();
 
-	public EntityPlayer player;
+	public ItemStack crystal;
 	public Link link;
 
 	protected int xSize = 256;
@@ -79,17 +82,9 @@ public class RadioCrystalGui extends GuiScreen{
 
 	public int pageNumber = 0;
 
-	public String prevLinkName;
-
-	public int view;
-
-	public Random rand;
-
-	public static final ResourceLocation radioCrystalGui = new ResourceLocation("headphonesradio", "textures/gui/radioCrystalGui.png");
-
-	public RadioCrystalGui(Container inv,EntityPlayer ply){
+	public RadioCrystalGui(Container inv, ItemStack radioCrystal){
 		super();
-		this.entityPlayer = ply;
+		this.crystal = radioCrystal;
 	}
 
 	public void initGui(){
@@ -161,15 +156,23 @@ public class RadioCrystalGui extends GuiScreen{
 		if(btn.id == ID_CLOSE){
 			exitAndUpdate();
 		}else if(btn.id == ID_CONNECT){
-			LogHelper.info("Connecting to: "+ textField.getText());
+			LogHelper.info("Connecting to: "+ textFieldText);
 		}else if(btn.id == ID_PAGE_LEFT){
 			pageNumber++;
+			// Debug
 			System.err.println(pageNumber);
 		}else if(btn.id == ID_PAGE_RIGHT){
 			if(pageNumber>0){				
 				pageNumber--;
+				// Debug
 				System.err.println(pageNumber);
 			}
+		}else if(btn.id == ID_ADD){
+			textFieldText = "Hope it works";
+			textField.setCursorPosition(0);
+			textField.writeText(textFieldText);
+			textField.setText(textFieldText);
+			updateScreen();
 		}
 
 	}
@@ -183,16 +186,13 @@ public class RadioCrystalGui extends GuiScreen{
 				onInsertFieldInteract();
 			}else{
 				insertField.setFocused(true);
-				super.keyTyped(c, i);
 			}
-			this.mc.setIngameFocus();
 		}
 	}
 
 	public void onInsertFieldInteract(){
 		if(insertField.isFocused()){
 			insertField.setTextColor(14737632);
-			insertField.setText("Test");
 			if(!hasClicked){
 				hasClicked = true;
 			}
