@@ -10,9 +10,9 @@ import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.EnumHelper;
 
-import com.gjkf.headPhones.client.gui.GuiHandler;
 import com.gjkf.headPhones.creativeTab.HeadPhonesCreativeTab;
 import com.gjkf.headPhones.handler.ConfigurationHandler;
+import com.gjkf.headPhones.handler.GuiHandler;
 import com.gjkf.headPhones.items.HeadPhones;
 import com.gjkf.headPhones.items.RadioCrystal;
 import com.gjkf.headPhones.proxy.CommonProxy;

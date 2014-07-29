@@ -1,8 +1,10 @@
-package com.gjkf.headPhones.client.gui;
+package com.gjkf.headPhones.handler;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
+import com.gjkf.headPhones.client.gui.HeadPhonesGui;
+import com.gjkf.headPhones.client.gui.RadioCrystalGui;
 import com.gjkf.headPhones.items.HeadPhonesContainer;
 import com.gjkf.headPhones.items.RadioCrystalContainer;
 import com.gjkf.headPhones.reference.References;
