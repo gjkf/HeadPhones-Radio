@@ -128,11 +128,16 @@ public class RadioCrystalGui extends GuiScreen{
 		insertField = new GuiTextField(this.fontRendererObj, this.width / 2 - 75, height/2- 80, 150, 10);
 		insertField.drawTextBox();
 		insertField.setMaxStringLength(255);
-		insertField.setVisible(enabledTextField);
+		insertField.setVisible(true);
 		insertField.setEnableBackgroundDrawing(true);
 		insertField.setTextColor(0xFFFFFF);
 		insertField.setEnabled(true);
 
+	}
+	
+	@Override
+	public boolean doesGuiPauseGame(){
+		return false;
 	}
 
 	@Override
