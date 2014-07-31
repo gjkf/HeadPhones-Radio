@@ -15,7 +15,7 @@ public class GuiHandler implements IGuiHandler{
 
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		return null;
+		return new HeadPhonesContainer(HeadPhonesContainer.headPhones, player.inventory);
 	}
 
 	@Override

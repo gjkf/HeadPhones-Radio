@@ -65,17 +65,17 @@ public class Main {
 		
 		GameRegistry.registerItem(radioCrystal, "radioCrystal");
 		
-		GameRegistry.addRecipe(new ItemStack(headPhones), "xxx","xax",'x', Blocks.log, 'a', Items.record_11);
-		GameRegistry.addRecipe(new ItemStack(headPhones), "xxx","xax",'x', Blocks.log, 'a', Items.record_13);
-		GameRegistry.addRecipe(new ItemStack(headPhones), "xxx","xax",'x', Blocks.log, 'a', Items.record_cat);
-		GameRegistry.addRecipe(new ItemStack(headPhones), "xxx","xax",'x', Blocks.log, 'a', Items.record_chirp);
-		GameRegistry.addRecipe(new ItemStack(headPhones), "xxx","xax",'x', Blocks.log, 'a', Items.record_far);
-		GameRegistry.addRecipe(new ItemStack(headPhones), "xxx","xax",'x', Blocks.log, 'a', Items.record_mall);
-		GameRegistry.addRecipe(new ItemStack(headPhones), "xxx","xax",'x', Blocks.log, 'a', Items.record_mellohi);
-		GameRegistry.addRecipe(new ItemStack(headPhones), "xxx","xax",'x', Blocks.log, 'a', Items.record_stal);
-		GameRegistry.addRecipe(new ItemStack(headPhones), "xxx","xax",'x', Blocks.log, 'a', Items.record_strad);
-		GameRegistry.addRecipe(new ItemStack(headPhones), "xxx","xax",'x', Blocks.log, 'a', Items.record_wait);
-		GameRegistry.addRecipe(new ItemStack(headPhones), "xxx","xax",'x', Blocks.log, 'a', Items.record_ward);
+		GameRegistry.addRecipe(new ItemStack(headPhones), "xxx","xax","sss",'x', Blocks.log, 'a', Items.record_11, 's', Items.string);
+		GameRegistry.addRecipe(new ItemStack(headPhones), "xxx","xax","sss",'x', Blocks.log, 'a', Items.record_13, 's', Items.string);
+		GameRegistry.addRecipe(new ItemStack(headPhones), "xxx","xax","sss",'x', Blocks.log, 'a', Items.record_cat, 's', Items.string);
+		GameRegistry.addRecipe(new ItemStack(headPhones), "xxx","xax","sss",'x', Blocks.log, 'a', Items.record_chirp, 's', Items.string);
+		GameRegistry.addRecipe(new ItemStack(headPhones), "xxx","xax","sss",'x', Blocks.log, 'a', Items.record_far, 's', Items.string);
+		GameRegistry.addRecipe(new ItemStack(headPhones), "xxx","xax","sss",'x', Blocks.log, 'a', Items.record_mall, 's', Items.string);
+		GameRegistry.addRecipe(new ItemStack(headPhones), "xxx","xax","sss",'x', Blocks.log, 'a', Items.record_mellohi, 's', Items.string);
+		GameRegistry.addRecipe(new ItemStack(headPhones), "xxx","xax","sss",'x', Blocks.log, 'a', Items.record_stal, 's', Items.string);
+		GameRegistry.addRecipe(new ItemStack(headPhones), "xxx","xax","sss",'x', Blocks.log, 'a', Items.record_strad, 's', Items.string);
+		GameRegistry.addRecipe(new ItemStack(headPhones), "xxx","xax","sss",'x', Blocks.log, 'a', Items.record_wait, 's', Items.string);
+		GameRegistry.addRecipe(new ItemStack(headPhones), "xxx","xax","sss",'x', Blocks.log, 'a', Items.record_ward, 's', Items.string);
 		
 		LogHelper.info("Pre Initialization Complete!!!");
 	}
