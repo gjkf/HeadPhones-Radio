@@ -15,7 +15,12 @@ public class GuiHandler implements IGuiHandler{
 
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		return new HeadPhonesContainer(HeadPhonesContainer.headPhones, player.inventory);
+		if (ID == References.GUI_HEADPHONES_ID){
+			return new HeadPhonesContainer(HeadPhonesContainer.headPhones, player.inventory);
+		}else if(ID == References.GUI_CRYSTAL_ID){
+			return new RadioCrystalContainer(RadioCrystalContainer.crystal, player.inventory);
+		}
+		return null;
 	}
 
 	@Override
