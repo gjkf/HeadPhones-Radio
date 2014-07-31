@@ -36,8 +36,8 @@ public class RadioCrystalGui extends GuiScreen{
 
 	private final int ID_CATEGORIES_START = 30;
 
-	private GuiTextField textField;
-	private GuiTextField insertField;
+	private GuiTextField textField = new GuiTextField(this.fontRendererObj, this.width / 2 - 75, height/2- 60, 150, 60);
+	private GuiTextField insertField = new GuiTextField(this.fontRendererObj, this.width / 2 - 75, height/2- 80, 150, 10);
 	public String textFieldText = "";
 	public String insertFieldText = "";
 
@@ -97,17 +97,15 @@ public class RadioCrystalGui extends GuiScreen{
 
 	@Override
 	public void drawScreen(int p_73863_1_, int p_73863_2_, float p_73863_3_){
-		
+
 		super.drawScreen(p_73863_1_, p_73863_2_, p_73863_3_);
 		initGui();
-		textField = new GuiTextField(this.fontRendererObj, this.width / 2 - 75, height/2- 60, 150, 60);
 		textField.drawTextBox();
 		textField.setMaxStringLength(255);
 		textField.setEnableBackgroundDrawing(true);
 		textField.setVisible(true);
 		textField.setTextColor(0xFFFFFF);
 
-		insertField = new GuiTextField(this.fontRendererObj, this.width / 2 - 75, height/2- 80, 150, 10);
 		insertField.drawTextBox();
 		insertField.setMaxStringLength(255);
 		insertField.setVisible(true);
@@ -124,10 +122,15 @@ public class RadioCrystalGui extends GuiScreen{
 
 	@Override
 	public void updateScreen(){
-		textField.updateCursorCounter();
 		if(textField.isFocused()){
+			textField.setFocused(true);
 			textField.setVisible(true);
+			insertField.setFocused(true);
+			insertField.setVisible(true);
 		}else{
+			insertField.setFocused(enabledTextField);
+			insertField.setVisible(enabledTextField);
+			textField.setFocused(enabledTextField);
 			textField.setVisible(enabledTextField);
 		}
 	}
@@ -159,7 +162,6 @@ public class RadioCrystalGui extends GuiScreen{
 			textField.setCursorPosition(0);
 			textField.writeText(textFieldText);
 			textField.setText(textFieldText);
-			updateScreen();
 		}
 
 	}
