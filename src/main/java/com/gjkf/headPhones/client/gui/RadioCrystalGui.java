@@ -36,8 +36,8 @@ public class RadioCrystalGui extends GuiScreen{
 
 	private final int ID_CATEGORIES_START = 30;
 
-	private GuiTextField textField = new GuiTextField(this.fontRendererObj, this.width / 2 - 75, height/2- 60, 150, 60);
-	private GuiTextField insertField = new GuiTextField(this.fontRendererObj, this.width / 2 - 75, height/2- 80, 150, 10);
+	private GuiTextField textField;
+	private GuiTextField insertField;
 	public String textFieldText = "";
 	public String insertFieldText = "";
 
@@ -92,6 +92,9 @@ public class RadioCrystalGui extends GuiScreen{
 			buttonList.add(new GuiButton(ID_DELETE, width / 2 + 1, height / 2 + 24, 44, 20, "Delete"));
 			buttonList.add(new GuiButton(ID_FAVOURITE, width / 2 - 95, height / 2 + 24, 52, 20, "Favourite"));
 			buttonList.add(new GuiButton(ID_CLOSE, width - 22, 2, 20, 20, "X"));
+			
+			textField  = new GuiTextField(this.fontRendererObj, this.width / 2 - 75, height/2- 60, 150, 60);
+			insertField  = new GuiTextField(this.fontRendererObj, this.width / 2 - 75, height/2- 80, 150, 10);
 		}
 	}
 
