@@ -165,8 +165,9 @@ public class RadioCrystalGui extends GuiScreen{
 			textField.setCursorPosition(0);
 			textField.writeText(textFieldText);
 			textField.setText(textFieldText);
+			updateScreen();
 		}
-
+		
 	}
 
 	@Override
@@ -196,6 +197,7 @@ public class RadioCrystalGui extends GuiScreen{
 					insertField.setText("");
 				}
 			}
-		}    	
+		}
 	}
+	
 }
