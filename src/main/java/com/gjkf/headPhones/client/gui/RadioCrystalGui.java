@@ -108,6 +108,8 @@ public class RadioCrystalGui extends GuiScreen{
 		textField.setEnableBackgroundDrawing(true);
 		textField.setVisible(true);
 		textField.setTextColor(0xFFFFFF);
+		textField.setCursorPosition(0);
+		textField.mouseClicked(this.width / 2, height/2- 80, 1);
 
 		insertField.drawTextBox();
 		insertField.setMaxStringLength(255);
@@ -173,12 +175,12 @@ public class RadioCrystalGui extends GuiScreen{
 	@Override
 	protected void keyTyped(char c, int i){
 		if (i == 1){
-			if(insertField.isFocused()){
-				insertField.textboxKeyTyped(c, i);
-				insertField.setText(textField.getText()+c);
+			if(textField.isFocused()){
+				textField.textboxKeyTyped(c, i);
+				textField.setText(textField.getText()+c);
 				onInsertFieldInteract();
 			}else{
-				insertField.setFocused(true);
+				textField.setFocused(true);
 			}
 		}
 	}
