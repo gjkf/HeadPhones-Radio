@@ -92,7 +92,7 @@ public class RadioCrystalGui extends GuiScreen{
 			buttonList.add(new GuiButton(ID_DELETE, width / 2 + 1, height / 2 + 24, 44, 20, "Delete"));
 			buttonList.add(new GuiButton(ID_FAVOURITE, width / 2 - 95, height / 2 + 24, 52, 20, "Favourite"));
 			buttonList.add(new GuiButton(ID_CLOSE, width - 22, 2, 20, 20, "X"));
-			
+
 			textField  = new GuiTextField(this.fontRendererObj, this.width / 2 - 75, height/2- 60, 150, 60);
 			insertField  = new GuiTextField(this.fontRendererObj, this.width / 2 - 75, height/2- 80, 150, 10);
 		}
@@ -109,7 +109,6 @@ public class RadioCrystalGui extends GuiScreen{
 		textField.setVisible(true);
 		textField.setTextColor(0xFFFFFF);
 		textField.setCursorPosition(0);
-		textField.mouseClicked(this.width / 2, height/2- 80, 1);
 
 		insertField.drawTextBox();
 		insertField.setMaxStringLength(255);
@@ -169,7 +168,7 @@ public class RadioCrystalGui extends GuiScreen{
 			textField.setText(textFieldText);
 			updateScreen();
 		}
-		
+
 	}
 
 	@Override
@@ -183,6 +182,25 @@ public class RadioCrystalGui extends GuiScreen{
 				textField.setFocused(true);
 			}
 		}
+	}
+
+	@Override
+	public void mouseClicked(int x, int y, int btn){
+		super.mouseClicked(x, y, btn);
+
+		if(btn == 0 && x>138 && x<288 && y> 41 && y<50){
+
+			insertField.setFocused(true);
+			insertField.setTextColor(0xFFFFFF);
+			insertField.setText("It should Work");
+			insertField.mouseClicked(x, y, btn);
+
+			LogHelper.info("Inside the textField");
+
+		}
+		LogHelper.info("X:" + x);
+		LogHelper.info("Y:" + y);
+		LogHelper.info("BTN:" + btn);
 	}
 
 	public void onInsertFieldInteract(){
@@ -201,5 +219,5 @@ public class RadioCrystalGui extends GuiScreen{
 			}
 		}
 	}
-	
+
 }
