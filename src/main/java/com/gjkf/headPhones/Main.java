@@ -9,6 +9,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import com.gjkf.headPhones.creativeTab.HeadPhonesCreativeTab;
 import com.gjkf.headPhones.handler.ConfigurationHandler;
@@ -65,17 +67,7 @@ public class Main {
 		
 		GameRegistry.registerItem(radioCrystal, "radioCrystal");
 		
-		GameRegistry.addRecipe(new ItemStack(headPhones), "xxx","xax","sss",'x', Blocks.log, 'a', Items.record_11, 's', Items.string);
-		GameRegistry.addRecipe(new ItemStack(headPhones), "xxx","xax","sss",'x', Blocks.log, 'a', Items.record_13, 's', Items.string);
-		GameRegistry.addRecipe(new ItemStack(headPhones), "xxx","xax","sss",'x', Blocks.log, 'a', Items.record_cat, 's', Items.string);
-		GameRegistry.addRecipe(new ItemStack(headPhones), "xxx","xax","sss",'x', Blocks.log, 'a', Items.record_chirp, 's', Items.string);
-		GameRegistry.addRecipe(new ItemStack(headPhones), "xxx","xax","sss",'x', Blocks.log, 'a', Items.record_far, 's', Items.string);
-		GameRegistry.addRecipe(new ItemStack(headPhones), "xxx","xax","sss",'x', Blocks.log, 'a', Items.record_mall, 's', Items.string);
-		GameRegistry.addRecipe(new ItemStack(headPhones), "xxx","xax","sss",'x', Blocks.log, 'a', Items.record_mellohi, 's', Items.string);
-		GameRegistry.addRecipe(new ItemStack(headPhones), "xxx","xax","sss",'x', Blocks.log, 'a', Items.record_stal, 's', Items.string);
-		GameRegistry.addRecipe(new ItemStack(headPhones), "xxx","xax","sss",'x', Blocks.log, 'a', Items.record_strad, 's', Items.string);
-		GameRegistry.addRecipe(new ItemStack(headPhones), "xxx","xax","sss",'x', Blocks.log, 'a', Items.record_wait, 's', Items.string);
-		GameRegistry.addRecipe(new ItemStack(headPhones), "xxx","xax","sss",'x', Blocks.log, 'a', Items.record_ward, 's', Items.string);
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(headPhones), "xxx","xax","sss", 'x', "logWood", 'a', "record", 's', Items.string));
 		
 		LogHelper.info("Pre Initialization Complete!!!");
 	}
