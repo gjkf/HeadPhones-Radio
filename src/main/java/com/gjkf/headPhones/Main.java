@@ -43,8 +43,6 @@ public class Main {
 	@SidedProxy(clientSide = References.CLIENT_PROXY_CLASS, serverSide = References.SERVER_PROXY_CLASS)
 	public static CommonProxy proxy;
 	
-	public static EnumMap<Side, FMLEmbeddedChannel> channels;
-	
 	public static int headPhonesId;
 
 	public static CreativeTabs tab = new HeadPhonesCreativeTab(CreativeTabs.getNextID(), "HeadPhonesTab");
