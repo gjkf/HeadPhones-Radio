@@ -34,10 +34,9 @@ public class RadioCrystalGui extends GuiScreen{
 	private final int ID_CLOSE = 13;
 	private final int ID_FAVOURITES = 14;
 
-	private final int ID_CATEGORIES_START = 30;
-
 	private GuiTextField textField;
-	private GuiTextField insertField;
+	private GuiTextField insertField
+	;
 	public String textFieldText = "";
 	public String insertFieldText = "";
 
@@ -93,8 +92,8 @@ public class RadioCrystalGui extends GuiScreen{
 			buttonList.add(new GuiButton(ID_FAVOURITE, width / 2 - 95, height / 2 + 24, 52, 20, "Favourite"));
 			buttonList.add(new GuiButton(ID_CLOSE, width - 22, 2, 20, 20, "X"));
 
-			textField  = new GuiTextField(this.fontRendererObj, this.width / 2 - 75, height/2- 60, 150, 60);
-			insertField  = new GuiTextField(this.fontRendererObj, this.width / 2 - 75, height/2- 80, 150, 10);
+			textField  = new GuiTextField(this.fontRendererObj, this.width / 2 - 75, height/2 - 60, 150, 60);
+			insertField  = new GuiTextField(this.fontRendererObj, this.width / 2 - 75, height/2 - 80, 150, 10);
 		}
 	}
 
@@ -115,8 +114,7 @@ public class RadioCrystalGui extends GuiScreen{
 		insertField.setVisible(true);
 		insertField.setEnableBackgroundDrawing(true);
 		insertField.setTextColor(0xFFFFFF);
-		insertField.setEnabled(true);
-
+		insertField.setEnabled(true);	
 	}
 
 	@Override
@@ -164,7 +162,6 @@ public class RadioCrystalGui extends GuiScreen{
 		}else if(btn.id == ID_ADD){
 			textFieldText = "Hope it works";
 			textField.setCursorPosition(0);
-			textField.writeText(textFieldText);
 			textField.setText(textFieldText);
 			updateScreen();
 		}
@@ -173,14 +170,8 @@ public class RadioCrystalGui extends GuiScreen{
 
 	@Override
 	protected void keyTyped(char c, int i){
-		if (i == 1){
-			if(textField.isFocused()){
-				textField.textboxKeyTyped(c, i);
-				textField.setText(textField.getText()+c);
-				onInsertFieldInteract();
-			}else{
-				textField.setFocused(true);
-			}
+		if(true){
+			textField.textboxKeyTyped(c, i);
 		}
 	}
 
@@ -190,34 +181,19 @@ public class RadioCrystalGui extends GuiScreen{
 
 		if(btn == 0 && x>138 && x<288 && y> 41 && y<50){
 
+			insertField.mouseClicked(x, y, btn);
 			insertField.setFocused(true);
 			insertField.setTextColor(0xFFFFFF);
-			insertField.setText("It should Work");
-			insertField.mouseClicked(x, y, btn);
+			insertField.setText(textFieldText);
 
+			LogHelper.info(insertFieldText);
 			LogHelper.info("Inside the textField");
 
 		}
+		textField.setText(insertFieldText);
 		LogHelper.info("X:" + x);
 		LogHelper.info("Y:" + y);
 		LogHelper.info("BTN:" + btn);
-	}
-
-	public void onInsertFieldInteract(){
-		if(insertField.isFocused()){
-			insertField.setTextColor(14737632);
-			if(!hasClicked){
-				hasClicked = true;
-			}
-		}else{
-			insertField.setTextColor(0xAAAAAA);
-			if(insertField.getText().equalsIgnoreCase("")){
-				hasClicked = false;
-				if(!adding && !renaming){
-					insertField.setText("");
-				}
-			}
-		}
 	}
 
 }
