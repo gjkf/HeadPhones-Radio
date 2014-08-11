@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.lwjgl.input.Keyboard;
 
-import com.gjkf.headPhones.Link;
+import com.gjkf.headPhones.connection.Link;
 import com.gjkf.headPhones.items.RadioCrystalContainer;
 import com.gjkf.headPhones.utility.LogHelper;
 

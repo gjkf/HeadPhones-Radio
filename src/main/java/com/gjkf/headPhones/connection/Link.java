@@ -1,4 +1,4 @@
-package com.gjkf.headPhones;
+package com.gjkf.headPhones.connection;
 
 import net.minecraft.item.ItemStack;
 
