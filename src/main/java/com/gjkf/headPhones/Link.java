@@ -11,7 +11,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class Link{
 
-	public String[] linkName = new String[0];
+	public static String[] linkName = new String[0];
 	public ItemStack crystal;
 
 	public Link(ItemStack radioCrystal, String[] linkName){
