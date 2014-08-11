@@ -21,7 +21,10 @@ public class Link{
 
 		if(radioCrystal.getItem().getClass() == RadioCrystal.class){
 			if(linkName != null){
-
+				// Debug
+				for(int i = 0; i<linkName.length;i++){
+					System.out.println(linkName[i]);
+				}
 			}
 
 		}
