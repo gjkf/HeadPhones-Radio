@@ -3,7 +3,6 @@ package com.gjkf.headPhones.connection;
 import net.minecraft.item.ItemStack;
 
 import com.gjkf.headPhones.items.RadioCrystal;
-import com.gjkf.headPhones.utility.NBTHelper;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

@@ -19,7 +19,8 @@ import com.gjkf.headPhones.items.HeadPhones;
 import com.gjkf.headPhones.items.RadioCrystal;
 import com.gjkf.headPhones.proxy.CommonProxy;
 import com.gjkf.headPhones.reference.References;
-import com.gjkf.headPhones.utility.LogHelper;
+
+import com.gjkf.lib.helper.LogHelper;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
@@ -42,6 +43,8 @@ public class Main {
 	
 	@SidedProxy(clientSide = References.CLIENT_PROXY_CLASS, serverSide = References.SERVER_PROXY_CLASS)
 	public static CommonProxy proxy;
+	
+	public static LogHelper log = new LogHelper(References.MODID);
 	
 	public static int headPhonesId;
 
@@ -67,7 +70,7 @@ public class Main {
 		
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(headPhones), "xxx","xax","sss", 'x', "logWood", 'a', "record", 's', Items.string));
 		
-		LogHelper.info("Pre Initialization Complete!!!");
+		log.info("Pre Initialization Complete!!!");
 	}
 
 	@EventHandler
@@ -75,13 +78,13 @@ public class Main {
 		
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
 		
-		LogHelper.info("Initialization Complete!!!");
+		log.info("Initialization Complete!!!");
 	}
 	
 	@EventHandler
 	public void postinit(FMLPostInitializationEvent event){
 		
-		LogHelper.info("Post Initialization Complete!!!");
+		log.info("Post Initialization Complete!!!");
 	}
 	
 }
