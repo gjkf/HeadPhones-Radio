@@ -35,7 +35,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.network.FMLEmbeddedChannel;
 import cpw.mods.fml.relauncher.Side;
 
-@Mod(modid = References.MODID, name = References.MOD_NAME,version = References.VERSION, guiFactory = References.GUI_FACTORY_CLASS)
+@Mod(modid = References.MODID, name = References.MOD_NAME,version = References.VERSION, dependencies = References.DEPENDENCIES,guiFactory = References.GUI_FACTORY_CLASS)
 public class Main {
 	
 	@Instance(References.MODID)
