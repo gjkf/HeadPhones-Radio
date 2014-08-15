@@ -3,7 +3,7 @@
   "modid": "HeadPhonesRadio",
   "name": "HeadPhonesRadio",
   "description": "Adds 2 items: the head phones and the radio crystals. This mod allows the player to listen to radio and music in Minecraft!!!",
-  "version": "${version}",
+  "version": "0.1",
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",

@@ -27,6 +27,8 @@ public class ConfigurationHandler {
 	public static boolean shouldBeSpawnedInStrongholdCrossing = true;
 	public static boolean shouldBeSpawnedInStrongholdLibrary = true;
 	public static boolean shouldBeSpawnedInVillageBlacksmith = true;
+	
+	public static boolean advancedGui = true;
 
 	public static void init(File configFile){
 
