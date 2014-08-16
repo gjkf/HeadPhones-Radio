@@ -17,6 +17,8 @@ public class RadioCrystalGui extends GuiScreenWidget{
 	private GuiGJTextField insertField;
 	private GuiGJTextField listField;
 	
+	private String allowedChars = "abcdefghijklmnopqrstuvwxyz!/()=?%";
+	
 	ConfigFile globalconfig = new ConfigFile(new File(CommonUtils.getMinecraftDir()+"/config", "HeadPhonesRadio.cfg"));
 	
 	public boolean largeGui = globalconfig.getTag("AdvancedGui").getBooleanValue(false);
@@ -30,6 +32,11 @@ public class RadioCrystalGui extends GuiScreenWidget{
 	
 	@Override
 	public void initGui(){
+		
+		for(int i = 0; i<allowedChars.length();i++){
+			allowedChar[i] = allowedChars.charAt(i);
+		}
+		
 		if(largeGui){
 			xSize = 236;
 			ySize = 190;
@@ -64,42 +71,42 @@ public class RadioCrystalGui extends GuiScreenWidget{
         return false;
     }
 
-	public char[] allowedChar;{
+	public char[] allowedChar;/*{
 		
-		allowedChar[0] = 'a';
-		allowedChar[1] = 'b';
-		allowedChar[2] = 'c';
-		allowedChar[3] = 'd';
-		allowedChar[4] = 'e';
-		allowedChar[5] = 'f';
-		allowedChar[6] = 'g';
-		allowedChar[7] = 'h';
-		allowedChar[8] = 'i';
-		allowedChar[9] = 'j';
-		allowedChar[10] = 'k';
-		allowedChar[11] = 'l';
-		allowedChar[12] = 'm';
-		allowedChar[13] = 'n';
-		allowedChar[14] = 'o';
-		allowedChar[15] = 'p';
-		allowedChar[16] = 'q';
-		allowedChar[17] = 'r';
-		allowedChar[18] = 's';
-		allowedChar[19] = 't';
-		allowedChar[20] = 'u';
-		allowedChar[21] = 'v';
-		allowedChar[22] = 'w';
-		allowedChar[23] = 'x';
-		allowedChar[24] = 'y';
-		allowedChar[25] = 'z';
-		allowedChar[26] = '!';
-		allowedChar[27] = '"';
-		allowedChar[28] = '/';
-		allowedChar[29] = '(';
-		allowedChar[30] = ')';
-		allowedChar[31] = '=';
-		allowedChar[32] = '?';
+		allowedChar[0] = 'a',
+		allowedChar[1] = 'b',
+		allowedChar[2] = 'c',
+		allowedChar[3] = 'd',
+		allowedChar[4] = 'e',
+		allowedChar[5] = 'f',
+		allowedChar[6] = 'g',
+		allowedChar[7] = 'h',
+		allowedChar[8] = 'i',
+		allowedChar[9] = 'j',
+		allowedChar[10] = 'k',
+		allowedChar[11] = 'l',
+		allowedChar[12] = 'm',
+		allowedChar[13] = 'n',
+		allowedChar[14] = 'o',
+		allowedChar[15] = 'p',
+		allowedChar[16] = 'q',
+		allowedChar[17] = 'r',
+		allowedChar[18] = 's',
+		allowedChar[19] = 't',
+		allowedChar[20] = 'u',
+		allowedChar[21] = 'v',
+		allowedChar[22] = 'w',
+		allowedChar[23] = 'x',
+		allowedChar[24] = 'y',
+		allowedChar[25] = 'z',
+		allowedChar[26] = '!',
+		allowedChar[27] = '"',
+		allowedChar[28] = '/',
+		allowedChar[29] = '(',
+		allowedChar[30] = ')',
+		allowedChar[31] = '=',
+		allowedChar[32] = '?',
 		
-	}
+	}*/
 	
 }
