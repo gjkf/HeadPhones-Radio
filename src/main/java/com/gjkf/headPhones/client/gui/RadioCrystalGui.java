@@ -19,11 +19,11 @@ public class RadioCrystalGui extends GuiScreenWidget{
 
 	private String allowedChars = "abcdefghijklmnopqrstuvwxyz!/()=?%";
 	
-	public int xCenter = (width-xSize)/2;
-	public int yCenter = (height-ySize)/2;
+	public static int xCenter = getXCenter();
+	public static int yCenter = getYCenter();
 
 	public RadioCrystalGui(Container inv, EntityPlayer ply){
-		super();
+		super(xCenter*2, yCenter*2);
 	}
 
 	@Override
@@ -43,7 +43,7 @@ public class RadioCrystalGui extends GuiScreenWidget{
 
 		add(new GuiGJButton(width / 2 + 47, height / 2 + 54, 20, 20, ">"));
 		add(new GuiGJButton(width / 2 - 21, height / 2 + 54, 20, 20, "<"));
-		add(new GuiGJButton(width / 2 - 91, height / 2 + 54, 44, 20,"Connect"));
+		add(new GuiGJButton(width / 2 - 91, height / 2 + 54, 44, 20, "Connect"));
 		add(new GuiGJButton(width / 2 + 1, height / 2 + 54, 44, 20, "Add"));
 		add(new GuiGJButton(width / 2 + 1, height / 2 + 24, 44, 20, "Delete"));
 		add(new GuiGJButton(width / 2 - 95, height / 2 + 24, 52, 20, "Favourite"));
