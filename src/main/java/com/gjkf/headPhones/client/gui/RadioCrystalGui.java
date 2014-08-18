@@ -16,63 +16,48 @@ public class RadioCrystalGui extends GuiScreenWidget{
 
 	private GuiGJTextField insertField;
 	private GuiGJTextField listField;
-	
+
 	private String allowedChars = "abcdefghijklmnopqrstuvwxyz!/()=?%";
 	
-	ConfigFile globalconfig = new ConfigFile(new File(CommonUtils.getMinecraftDir()+"/config", "HeadPhonesRadio.cfg"));
-	
-	public boolean largeGui = globalconfig.getTag("AdvancedGui").getBooleanValue(false);
-
-	public int xSize;
-	public int ySize;
+	public int xCenter = (width-xSize)/2;
+	public int yCenter = (height-ySize)/2;
 
 	public RadioCrystalGui(Container inv, EntityPlayer ply){
 		super();
 	}
-	
+
 	@Override
 	public void initGui(){
-		
+
 		for(int i = 0; i<allowedChars.length();i++){
 			allowedChar[i] = allowedChars.charAt(i);
 		}
-		
-		if(largeGui){
-			xSize = 236;
-			ySize = 190;
-		}else{
-			xSize = 176;
-			ySize = 166;
-		}
+
 	}
 
 	@Override
 	public void addWidgets(){
 
-		if(largeGui){
-		}else{
-			
-			add(insertField = new  GuiGJTextField(this.width / 2 - 75, height/2 - 60, 150, 60, ""));
-			add(listField = new GuiGJTextField(this.width / 2 - 105, height/2 - 60, 150, 120, "").setAllowedCharacters(allowedChar));
-			
-			add(new GuiGJButton(width / 2 + 47, height / 2 + 54, 20, 20, ">"));
-			add(new GuiGJButton(width / 2 - 21, height / 2 + 54, 20, 20, "<"));
-			add(new GuiGJButton(width / 2 - 91, height / 2 + 54, 44, 20,"Connect"));
-			add(new GuiGJButton(width / 2 + 1, height / 2 + 54, 44, 20, "Add"));
-			add(new GuiGJButton(width / 2 + 1, height / 2 + 24, 44, 20, "Delete"));
-			add(new GuiGJButton(width / 2 - 95, height / 2 + 24, 52, 20, "Favourite"));
-			add(new GuiGJButton(width - 22, 2, 20, 20, "X"));
-			
-		}
-		
+		add(insertField = new  GuiGJTextField(this.width / 2 - 75, height/2 - 60, 150, 60, ""));
+		add(listField = new GuiGJTextField(this.width / 2 - 105, height/2 - 60, 150, 120, "").setAllowedCharacters(allowedChar));
+
+		add(new GuiGJButton(width / 2 + 47, height / 2 + 54, 20, 20, ">"));
+		add(new GuiGJButton(width / 2 - 21, height / 2 + 54, 20, 20, "<"));
+		add(new GuiGJButton(width / 2 - 91, height / 2 + 54, 44, 20,"Connect"));
+		add(new GuiGJButton(width / 2 + 1, height / 2 + 54, 44, 20, "Add"));
+		add(new GuiGJButton(width / 2 + 1, height / 2 + 24, 44, 20, "Delete"));
+		add(new GuiGJButton(width / 2 - 95, height / 2 + 24, 52, 20, "Favourite"));
+		add(new GuiGJButton(width - 22, 2, 20, 20, "X"));
+
+
 	}
-	
+
 	public boolean doesGuiPauseGame(){
-        return false;
-    }
+		return false;
+	}
 
 	public char[] allowedChar;/*{
-		
+
 		allowedChar[0] = 'a',
 		allowedChar[1] = 'b',
 		allowedChar[2] = 'c',
@@ -106,7 +91,7 @@ public class RadioCrystalGui extends GuiScreenWidget{
 		allowedChar[30] = ')',
 		allowedChar[31] = '=',
 		allowedChar[32] = '?',
-		
+
 	}*/
-	
+
 }

@@ -10,7 +10,6 @@ import net.minecraft.world.World;
 import com.gjkf.headPhones.Main;
 import com.gjkf.headPhones.client.gui.HeadPhonesGui;
 import com.gjkf.headPhones.reference.References;
-import com.gjkf.headPhones.utility.LogHelper;
 
 public class HeadPhones extends ItemArmor{
 
@@ -37,7 +36,7 @@ public class HeadPhones extends ItemArmor{
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player){
 		if (player.isSneaking()){
 			player.openGui(Main.instance, References.GUI_HEADPHONES_ID, world, (int)player.posX, (int)player.posY, (int)player.posZ);
-			LogHelper.info("Succesfully opened GUI");
+			Main.log.info("Succesfully opened GUI");
 		}
 
 		return stack;

@@ -2,7 +2,6 @@ package com.gjkf.headPhones.items;
 
 import com.gjkf.headPhones.Main;
 import com.gjkf.headPhones.reference.References;
-import com.gjkf.headPhones.utility.LogHelper;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;

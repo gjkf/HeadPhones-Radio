@@ -6,8 +6,7 @@ import java.net.*;
 import java.util.Iterator;
 import java.util.Scanner;
 
-import com.gjkf.headPhones.utility.LogHelper;
-
+import com.gjkf.headPhones.Main;
 import com.google.common.base.Splitter;
 
 public class UrlMeta {
@@ -64,7 +63,7 @@ public class UrlMeta {
 	}
 
 	private Status resolveImpl() {
-		LogHelper.info("Resolving URL %s");
+		Main.log.info("Resolving URL %s");
 		HttpURLConnection connection = null;
 		try {
 			while (true) {
@@ -81,7 +80,7 @@ public class UrlMeta {
 				try {
 					connection.connect();
 				} catch (ConnectException e) {
-					LogHelper.warn("Can't connect to %s");
+					Main.log.warn("Can't connect to %s");
 					return Status.CANT_CONNECT;
 				}
 
@@ -94,7 +93,7 @@ public class UrlMeta {
 					case 303:
 					case 307: {
 						final String redirectedUrl = connection.getHeaderField("location");
-						LogHelper.debug("Redirection to URL %s (code: %d)");
+						Main.log.debug("Redirection to URL %s (code: %d)");
 						connection.disconnect();
 						this.url = redirectedUrl;
 						continue;
@@ -102,12 +101,12 @@ public class UrlMeta {
 					case 404:
 						return Status.NOT_FOUND;
 					default:
-						LogHelper.warn("Invalid status code from url %s: %d");
+						Main.log.warn("Invalid status code from url %s: %d");
 						return Status.UNKOWN_ERROR;
 				}
 			}
 		} catch (Throwable t) {
-			LogHelper.warn("Exception during opening url %s");
+			Main.log.warn("Exception during opening url %s");
 		} finally {
 			if (connection != null) connection.disconnect();
 		}
@@ -116,7 +115,7 @@ public class UrlMeta {
 
 	private Status processStream(HttpURLConnection connection) {
 		String contentType = connection.getContentType();
-		LogHelper.debug("URL %s has content type %s");
+		Main.log.debug("URL %s has content type %s");
 		if (contentType.equals(MIME_PLS)) return parsePLS(connection);
 		else if (contentType.equals(MIME_M3U_APP) || contentType.equals(MIME_M3U_AUDIO)) return parseM3U(connection);
 
@@ -125,14 +124,14 @@ public class UrlMeta {
 	}
 
 	private Status parsePLS(HttpURLConnection connection) {
-		LogHelper.debug("Parsing PLS file at URL %s");
+		Main.log.debug("Parsing PLS file at URL %s");
 		Scanner scanner = null;
 		try {
 			Reader reader = new InputStreamReader(connection.getInputStream());
 			scanner = new Scanner(reader);
 			String header = scanner.nextLine();
 			if (!header.equals("[playlist]")) {
-				LogHelper.warn("Invalid header '%s' in pls file %s");
+				Main.log.warn("Invalid header '%s' in pls file %s");
 				return Status.MALFORMED_DATA;
 			}
 
@@ -143,14 +142,14 @@ public class UrlMeta {
 				String name = it.next();
 				if (name.startsWith("File")) {
 					String value = it.next();
-					LogHelper.debug("Trying playlist %s entry %s = %s)");
+					Main.log.debug("Trying playlist %s entry %s = %s)");
 					url = value;
 					Status result = resolveImpl();
 					if (result.valid) return result;
 				}
 			}
 		} catch (Throwable t) {
-			LogHelper.warn("Can't parse playlist file %s");
+			Main.log.warn("Can't parse playlist file %s");
 		} finally {
 			if (scanner != null) scanner.close();
 		}
@@ -158,7 +157,7 @@ public class UrlMeta {
 	}
 
 	private Status parseM3U(HttpURLConnection connection) {
-		LogHelper.info("Parsing M3U file at URL %s");
+		Main.log.info("Parsing M3U file at URL %s");
 		Scanner scanner = null;
 		try {
 			Reader reader = new InputStreamReader(connection.getInputStream());
@@ -166,13 +165,13 @@ public class UrlMeta {
 			while (scanner.hasNextLine()) {
 				String line = scanner.nextLine();
 				if (line.startsWith("#")) continue;
-				LogHelper.debug("Trying playlist %s entry %s)");
+				Main.log.debug("Trying playlist %s entry %s)");
 				url = line;
 				Status result = resolveImpl();
 				if (result.valid) return result;
 			}
 		} catch (Throwable t) {
-			LogHelper.warn("Can't parse playlist file %s");
+			Main.log.warn("Can't parse playlist file %s");
 		} finally {
 			if (scanner != null) scanner.close();
 		}
