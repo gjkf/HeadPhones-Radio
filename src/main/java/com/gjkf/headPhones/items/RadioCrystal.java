@@ -11,6 +11,8 @@ import net.minecraft.world.World;
 
 public class RadioCrystal extends Item{
 
+	public static boolean isPlaying;
+	
 	public RadioCrystal(){
 		setMaxStackSize(1);
 		setHasSubtypes(true);

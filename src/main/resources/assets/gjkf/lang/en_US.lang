@@ -4,5 +4,4 @@ item.headPhones.name=Head-Phones
 item.radioCrystal.name=Radio Crystal
 
 keys.headPhones.category=HeadPhones Radio
-keys.headPhones.charge=HeadPhones Radio Charge
-keys.headPhones.release=HeadPhones Radio Release
+keys.headPhones.play=Play Music
