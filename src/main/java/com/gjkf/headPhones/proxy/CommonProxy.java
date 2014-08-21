@@ -1,5 +1,5 @@
 package com.gjkf.headPhones.proxy;
 
-public class CommonProxy{
+public abstract class CommonProxy implements IProxy{
 	
 }

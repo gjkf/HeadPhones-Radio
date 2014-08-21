@@ -15,11 +15,11 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import com.gjkf.headPhones.creativeTab.HeadPhonesCreativeTab;
 import com.gjkf.headPhones.handler.ConfigurationHandler;
 import com.gjkf.headPhones.handler.GuiHandler;
+import com.gjkf.headPhones.handler.KeyInputEventHandler;
 import com.gjkf.headPhones.items.HeadPhones;
 import com.gjkf.headPhones.items.RadioCrystal;
 import com.gjkf.headPhones.proxy.CommonProxy;
 import com.gjkf.headPhones.reference.References;
-
 import com.gjkf.lib.helper.LogHelper;
 
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -70,11 +70,15 @@ public class Main {
 		
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(headPhones), "xxx","xax","sss", 'x', "logWood", 'a', "record", 's', Items.string));
 		
+		proxy.registerKeyBindings();
+		
 		log.info("Pre Initialization Complete!!!");
 	}
 
 	@EventHandler
     public void init(FMLInitializationEvent event){
+		
+		FMLCommonHandler.instance().bus().register(new KeyInputEventHandler());
 		
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
 		
