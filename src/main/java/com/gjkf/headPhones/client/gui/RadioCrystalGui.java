@@ -1,6 +1,7 @@
 package com.gjkf.headPhones.client.gui;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,16 +15,22 @@ public class RadioCrystalGui extends GuiScreenWidget{
 
 	private GuiGJTextField insertField;
 	private GuiGJTextField listField;
-	
-	private String allowedChars = "abcdefghijklmnopqrstuvwxyz!/()=?%";
-	
-	public char[] allowedChar = new char[35];
-	
-	public static int xCenter = getXCenter();
-	public static int yCenter = getYCenter();
-	
+
+	private int pageNumber = 0;
+
+	private String allowedChars = "abcdefghijklmnopqrstuvwxyz!/()=?.";
+
+	public String insertFieldText;
+	public ArrayList<String> listFieldText;
+	public ArrayList<String> favList;
+
+	public char[] allowedChar = new char[33];
+
+	public static int minX = getMinX();
+	public static int minY = getMinY();
+
 	public RadioCrystalGui(EntityPlayer ply){
-		super(xCenter*2, yCenter*2);
+		super(minX, minY);
 	}
 
 	@Override
@@ -31,6 +38,7 @@ public class RadioCrystalGui extends GuiScreenWidget{
 
 		for(int i = 0; i<allowedChars.length();i++){
 			allowedChar[i] = allowedChars.charAt(i);
+			//Debug	Main.log.info(allowedChar[i]);
 		}
 
 	}
@@ -38,60 +46,52 @@ public class RadioCrystalGui extends GuiScreenWidget{
 	@Override
 	public void addWidgets(){
 
-		add(insertField = new  GuiGJTextField(this.width / 2 - 75, height/2 - 60, 150, 60, ""));
-		add(listField = new GuiGJTextField(this.width / 2 - 105, height/2 - 60, 150, 120, "").setAllowedCharacters(allowedChar));
+		add(insertField = new  GuiGJTextField(minX + 140, minY + 10, 150, 15, "").setAllowedCharacters(allowedChar).setMaxStringLength(255));
+		add(listField = new GuiGJTextField(minX + 140, minY + 50, 150, 120, "").setAllowedCharacters(allowedChar));
 
-		add(new GuiGJButton(width / 2 + 47, height / 2 + 54, 20, 20, ">"));
-		add(new GuiGJButton(width / 2 - 21, height / 2 + 54, 20, 20, "<"));
-		add(new GuiGJButton(width / 2 - 91, height / 2 + 54, 44, 20, "Connect"));
-		add(new GuiGJButton(width / 2 + 1, height / 2 + 54, 44, 20, "Add"));
-		add(new GuiGJButton(width / 2 + 1, height / 2 + 24, 44, 20, "Delete"));
-		add(new GuiGJButton(width / 2 - 95, height / 2 + 24, 52, 20, "Favourite"));
-		add(new GuiGJButton(width - 22, 2, 20, 20, "X"));
+		add(new GuiGJButton(minX + 140, minY + 180, 20, 20, "<").setActionCommand("priorPage"));
+		add(new GuiGJButton(minX + 270, minY + 180, 20, 20, ">").setActionCommand("nextPage"));
+		add(new GuiGJButton(minX + 45, minY + 50, 44, 20, "Connect").setActionCommand("connect"));
+		add(new GuiGJButton(minX + 45, minY + 100, 44, 20, "Add").setActionCommand("addLink"));
+		add(new GuiGJButton(minX + 350, minY + 100, 44, 20, "Delete").setActionCommand("deleteLink"));
+		add(new GuiGJButton(minX + 344, minY + 50, 55, 20, "Favourite").setActionCommand("setFav"));
+		add(new GuiGJButton(minX + 400, minY + 5, 20, 20, "X").setActionCommand("quitGui"));
 
+
+	}
+
+	@Override
+	public void actionPerformed(String ident, Object ... params){
+
+		if(ident.equals("connect")){
+			Main.log.info("Connecting to: " + listFieldText);
+		}else if(ident.equals("priorPage")){
+			if(pageNumber > 0){
+				pageNumber--;
+				Main.log.info("current page: " + pageNumber);
+			}
+		}else if(ident.equals("nextPage")){
+			pageNumber++;
+			Main.log.info("Current page: " + pageNumber);
+		}else if(ident.equals("addLink")){
+			if(insertFieldText != null){
+				listFieldText.add(insertFieldText);
+			} 
+		}else if(ident.equals("deleteLink")){
+			//TODO make the currSelectedLink variable
+		//	listFieldText.remove(0);
+		}else if(ident.equals("setFav")){
+			//TODO make the currSelectedLink variable
+		//	favList.add("Test Fav");
+		//	Main.log.info(favList);
+		}else if(ident.equals("quitGui")){
+			mc.displayGuiScreen(null);
+		}
 
 	}
 
 	public boolean doesGuiPauseGame(){
 		return false;
 	}
-
-	/*{
-
-		allowedChar[0] = 'a',
-		allowedChar[1] = 'b',
-		allowedChar[2] = 'c',
-		allowedChar[3] = 'd',
-		allowedChar[4] = 'e',
-		allowedChar[5] = 'f',
-		allowedChar[6] = 'g',
-		allowedChar[7] = 'h',
-		allowedChar[8] = 'i',
-		allowedChar[9] = 'j',
-		allowedChar[10] = 'k',
-		allowedChar[11] = 'l',
-		allowedChar[12] = 'm',
-		allowedChar[13] = 'n',
-		allowedChar[14] = 'o',
-		allowedChar[15] = 'p',
-		allowedChar[16] = 'q',
-		allowedChar[17] = 'r',
-		allowedChar[18] = 's',
-		allowedChar[19] = 't',
-		allowedChar[20] = 'u',
-		allowedChar[21] = 'v',
-		allowedChar[22] = 'w',
-		allowedChar[23] = 'x',
-		allowedChar[24] = 'y',
-		allowedChar[25] = 'z',
-		allowedChar[26] = '!',
-		allowedChar[27] = '"',
-		allowedChar[28] = '/',
-		allowedChar[29] = '(',
-		allowedChar[30] = ')',
-		allowedChar[31] = '=',
-		allowedChar[32] = '?',
-
-	}*/
 
 }
