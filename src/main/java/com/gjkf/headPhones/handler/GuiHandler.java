@@ -17,8 +17,6 @@ public class GuiHandler implements IGuiHandler{
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		if (ID == References.GUI_HEADPHONES_ID){
 			return new HeadPhonesContainer(HeadPhonesContainer.headPhones, player.inventory);
-		}else if(ID == References.GUI_CRYSTAL_ID){
-			return new RadioCrystalContainer(RadioCrystalContainer.crystal, player.inventory);
 		}
 		return null;
 	}
@@ -29,7 +27,7 @@ public class GuiHandler implements IGuiHandler{
 		if (ID == References.GUI_HEADPHONES_ID){
 			return new HeadPhonesGui(HeadPhonesContainer.headPhones, player.inventory);
 		}else if(ID == References.GUI_CRYSTAL_ID){
-			return new RadioCrystalGui(RadioCrystalContainer.crystal, player);
+			return new RadioCrystalGui(player);
 		}
 		return null;
 	}

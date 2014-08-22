@@ -4,9 +4,8 @@ import java.io.File;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 
-import com.gjkf.lib.config.ConfigFile;
+import com.gjkf.headPhones.Main;
 import com.gjkf.lib.gui.GuiGJButton;
 import com.gjkf.lib.gui.GuiGJTextField;
 import com.gjkf.lib.gui.GuiScreenWidget;
@@ -16,13 +15,13 @@ public class RadioCrystalGui extends GuiScreenWidget{
 
 	private GuiGJTextField insertField;
 	private GuiGJTextField listField;
-
+	
 	private String allowedChars = "abcdefghijklmnopqrstuvwxyz!/()=?%";
 	
 	public static int xCenter = getXCenter();
 	public static int yCenter = getYCenter();
-
-	public RadioCrystalGui(Container inv, EntityPlayer ply){
+	
+	public RadioCrystalGui(EntityPlayer ply){
 		super(xCenter*2, yCenter*2);
 	}
 

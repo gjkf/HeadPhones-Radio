@@ -6,7 +6,6 @@ import com.gjkf.headPhones.Main;
 import com.gjkf.headPhones.client.settings.KeyBindings;
 import com.gjkf.headPhones.items.RadioCrystal;
 import com.gjkf.headPhones.reference.Key;
-import com.gjkf.lib.helper.NBTHelper;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent;
@@ -27,10 +26,7 @@ public class KeyInputEventHandler {
 	@SubscribeEvent
 	public void handleKeyInputEvent(InputEvent.KeyInputEvent event){
 		
-		if(getPressedKeyBinding() == Key.PLAY){
-			NBTHelper.setBoolean(new ItemStack(Main.radioCrystal), "playing", true);
-			
-			Main.log.info(NBTHelper.getBoolean(new ItemStack(Main.radioCrystal), "playing"));
+		if(getPressedKeyBinding() == Key.PLAY){			
 		}
 		
 	}
