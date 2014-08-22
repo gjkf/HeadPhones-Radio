@@ -17,6 +17,8 @@ public class RadioCrystalGui extends GuiScreenWidget{
 	
 	private String allowedChars = "abcdefghijklmnopqrstuvwxyz!/()=?%";
 	
+	public char[] allowedChar = new char[35];
+	
 	public static int xCenter = getXCenter();
 	public static int yCenter = getYCenter();
 	
@@ -54,7 +56,7 @@ public class RadioCrystalGui extends GuiScreenWidget{
 		return false;
 	}
 
-	public char[] allowedChar;/*{
+	/*{
 
 		allowedChar[0] = 'a',
 		allowedChar[1] = 'b',
