@@ -15,20 +15,16 @@ public class RadioCrystalGui extends GuiScreenWidget{
 	private GuiGJTextField listField;
 
 	private int pageNumber = 0;
-
+	
+	public int midX;
+	public int midY;
+	
 	private String allowedChars = "abcdefghijklmnopqrstuvwxyz!/()=?.";
-
 	public String insertFieldText;
 	public ArrayList<String> listFieldText;
 	public ArrayList<String> favList;
-
-	public char[] allowedChar = new char[33];
-
-	public static int minX = getMinX();
-	public static int minY = getMinY();
 	
-	public int midX = getMidX();
-	public int midY = getMidY();
+	public char[] allowedChar = new char[33];
 
 	public RadioCrystalGui(EntityPlayer ply){
 		super();
@@ -42,28 +38,24 @@ public class RadioCrystalGui extends GuiScreenWidget{
 			//Debug	Main.log.info(allowedChar[i]);
 		}
 		
-		Main.log.info("Width: " + width);
-		Main.log.info("Height: " + height);
-		Main.log.info("Width/2: " + width/2);
-		Main.log.info("Height/2: " + height/2);
-		Main.log.info("MidX: " + midX);
-		Main.log.info("MidY: " + midY);
+		midX = getMid(width);
+		midY = getMid(height);
 		
 	}
 
 	@Override
 	public void addWidgets(){
 
-		add(insertField = new  GuiGJTextField(midX - 20, midY - 10, 150, 15, "").setAllowedCharacters(allowedChar).setMaxStringLength(255));
-		add(listField = new GuiGJTextField(midX, midY - 50, 150, 120, "").setAllowedCharacters(allowedChar));
+		add(insertField = new  GuiGJTextField(midX + 10, midY - 10, 150, 15, "").setAllowedCharacters(allowedChar).setMaxStringLength(255));
+		add(listField = new GuiGJTextField(midX + 10, midY + 50, 150, 120, "").setAllowedCharacters(allowedChar));
 
-		add(new GuiGJButton(minX + 140, minY + 180, 20, 20, "<").setActionCommand("priorPage"));
-		add(new GuiGJButton(minX + 270, minY + 180, 20, 20, ">").setActionCommand("nextPage"));
-		add(new GuiGJButton(minX + 45, minY + 50, 44, 20, "Connect").setActionCommand("connect"));
-		add(new GuiGJButton(minX + 45, minY + 100, 44, 20, "Add").setActionCommand("addLink"));
-		add(new GuiGJButton(minX + 350, minY + 100, 44, 20, "Delete").setActionCommand("deleteLink"));
-		add(new GuiGJButton(minX + 344, minY + 50, 55, 20, "Favourite").setActionCommand("setFav"));
-		add(new GuiGJButton(minX + 400, minY + 5, 20, 20, "X").setActionCommand("quitGui"));
+		add(new GuiGJButton(midX + 140, midY + 180, 20, 20, "<").setActionCommand("priorPage"));
+		add(new GuiGJButton(midX + 270, midY + 180, 20, 20, ">").setActionCommand("nextPage"));
+		add(new GuiGJButton(midX - 45, midY + 50, 44, 20, "Connect").setActionCommand("connect"));
+		add(new GuiGJButton(midX - 45, midY + 100, 44, 20, "Add").setActionCommand("addLink"));
+		add(new GuiGJButton(midX +350, midY + 100, 44, 20, "Delete").setActionCommand("deleteLink"));
+		add(new GuiGJButton(midX + 344, midY + 50, 55, 20, "Favourite").setActionCommand("setFav"));
+		add(new GuiGJButton(midX * 2 + 50, midY/2 + 30, 20, 20, "X").setActionCommand("quitGui"));
 
 	}
 
