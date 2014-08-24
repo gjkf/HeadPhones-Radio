@@ -12,4 +12,9 @@ public class References {
 	public static final String DEPENDENCIES = "required-after:gjkfLib@[0.2,]";
 	public static final int GUI_HEADPHONES_ID = 1000;
 	public static final int GUI_CRYSTAL_ID = 1001;
+	public static final int GUI_LINK_ID_1 = 1002;
+	public static final int GUI_LINK_ID_2 = 1003;
+	public static final int GUI_LINK_ID_3 = 1004;
+	public static final int GUI_LINK_ID_0 = 1005;
+	
 }
