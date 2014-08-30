@@ -2,16 +2,19 @@ package com.gjkf.headPhones.handler;
 
 import java.io.File;
 
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import com.gjkf.headPhones.Main;
 import com.gjkf.headPhones.reference.References;
 
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ConfigurationHandler {
 
@@ -27,6 +30,8 @@ public class ConfigurationHandler {
 	public static boolean shouldBeSpawnedInStrongholdCrossing = true;
 	public static boolean shouldBeSpawnedInStrongholdLibrary = true;
 	public static boolean shouldBeSpawnedInVillageBlacksmith = true;
+	
+	public static String[] radioStations = new String[0];
 	
 	public static boolean advancedGui = true;
 
@@ -71,6 +76,8 @@ public class ConfigurationHandler {
 		shouldBeSpawnedInVillageBlacksmith = config.getBoolean("shouldBeSpawnedInVillageBlacksmith", Configuration.CATEGORY_GENERAL, true,
 				"Should the Radio Crystals be randomly generated in village's blacksmith's chest?");
 
+		radioStations = config.getStringList("radioStations", Configuration.CATEGORY_GENERAL, radioStations,"List any radio stations you want");
+		
 		if(config.hasChanged()){
 			config.save();
 		}
@@ -125,6 +132,8 @@ public class ConfigurationHandler {
 			shouldBeSpawnedInStrongholdCrossing = false;
 			shouldBeSpawnedInStrongholdLibrary = false;
 			shouldBeSpawnedInVillageBlacksmith = false;
+			
+			GameRegistry.addRecipe(new ShapedOreRecipe(Main.radioCrystal, "xxx","xxx","x x",'x', Items.iron_ingot));
 		}
 	}
 

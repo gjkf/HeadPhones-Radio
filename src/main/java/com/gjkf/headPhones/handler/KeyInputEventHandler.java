@@ -4,6 +4,7 @@ import net.minecraft.item.ItemStack;
 
 import com.gjkf.headPhones.Main;
 import com.gjkf.headPhones.client.settings.KeyBindings;
+import com.gjkf.headPhones.connection.RadioManager.RadioStation;
 import com.gjkf.headPhones.items.RadioCrystal;
 import com.gjkf.headPhones.reference.Key;
 
@@ -26,7 +27,8 @@ public class KeyInputEventHandler {
 	@SubscribeEvent
 	public void handleKeyInputEvent(InputEvent.KeyInputEvent event){
 		
-		if(getPressedKeyBinding() == Key.PLAY){			
+		if(getPressedKeyBinding() == Key.PLAY){
+			Main.log.info("Started Playing");
 		}
 		
 	}
