@@ -40,7 +40,8 @@ import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class RadioManager{
+/*public class RadioManager{
+
 
 	public static class RadioException extends RuntimeException {
 		private static final long serialVersionUID = 1026197667827191392L;
@@ -145,7 +146,7 @@ public class RadioManager{
 	private RadioManager() {}
 
 	public static final RadioManager instance = new RadioManager();
-
+/*
 	public void init() {
 		reloadStations();
 
@@ -172,13 +173,13 @@ public class RadioManager{
 			PROTOCOLS.put(mime, ext);
 		}
 	}
-
+/*
 	public List<RadioStation> getRadioStations() {
 		if (stations == null) reloadStations();
 		return stations;
 	}
 
-	private void reloadStations() {
+/*	private void reloadStations() {
 		locationToUrl.clear();
 		ImmutableList.Builder<RadioStation> stations = ImmutableList.builder();
 		List<String> urls = Lists.newArrayList();
@@ -304,4 +305,4 @@ public class RadioManager{
 		return data;
 	}
 
-}
+}*/

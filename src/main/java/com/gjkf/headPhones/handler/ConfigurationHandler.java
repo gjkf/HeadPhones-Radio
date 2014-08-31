@@ -10,6 +10,7 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import com.gjkf.headPhones.Main;
+import com.gjkf.headPhones.client.gui.LinkGui;
 import com.gjkf.headPhones.reference.References;
 
 import cpw.mods.fml.client.event.ConfigChangedEvent;
@@ -30,8 +31,6 @@ public class ConfigurationHandler {
 	public static boolean shouldBeSpawnedInStrongholdCrossing = true;
 	public static boolean shouldBeSpawnedInStrongholdLibrary = true;
 	public static boolean shouldBeSpawnedInVillageBlacksmith = true;
-	
-	public static String[] radioStations = new String[0];
 	
 	public static boolean advancedGui = true;
 
@@ -75,8 +74,6 @@ public class ConfigurationHandler {
 
 		shouldBeSpawnedInVillageBlacksmith = config.getBoolean("shouldBeSpawnedInVillageBlacksmith", Configuration.CATEGORY_GENERAL, true,
 				"Should the Radio Crystals be randomly generated in village's blacksmith's chest?");
-
-		radioStations = config.getStringList("radioStations", Configuration.CATEGORY_GENERAL, radioStations,"List any radio stations you want");
 		
 		if(config.hasChanged()){
 			config.save();
