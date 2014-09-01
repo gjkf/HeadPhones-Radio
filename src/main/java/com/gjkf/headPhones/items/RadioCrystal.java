@@ -5,8 +5,6 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
 import com.gjkf.headPhones.Main;
-import com.gjkf.headPhones.connection.RadioManager;
-import com.gjkf.headPhones.connection.RadioManager.RadioStation;
 import com.gjkf.headPhones.reference.References;
 import com.gjkf.lib.colour.Colours;
 import com.gjkf.lib.colour.Colours.ColorMeta;
@@ -43,7 +41,7 @@ public class RadioCrystal extends Item{
 		}
 		return itemStack;
 	}
-
+/*
 	public ItemStack createStack(String url, String name, Iterable<String> attributes) {
 		boolean hidden = false;
 
@@ -76,6 +74,6 @@ public class RadioCrystal extends Item{
 		String updatedUrl = RadioManager.instance.updateURL(url);
 		if (!updatedUrl.equals(url)) NBTHelper.setString(stack, TAG_URL, updatedUrl);
 		return updatedUrl;
-	}
+	} */
 	
 }

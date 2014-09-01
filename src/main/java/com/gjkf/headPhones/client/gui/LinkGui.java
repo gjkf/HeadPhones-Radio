@@ -2,9 +2,12 @@ package com.gjkf.headPhones.client.gui;
 
 import java.util.ArrayList;
 
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+
 import net.minecraft.entity.player.EntityPlayer;
 
 import com.gjkf.headPhones.Main;
+import com.gjkf.headPhones.handler.URLsHandler;
 import com.gjkf.headPhones.reference.References;
 import com.gjkf.lib.gui.GuiGJButton;
 import com.gjkf.lib.gui.GuiGJTextField;
@@ -18,18 +21,20 @@ public class LinkGui extends GuiScreenWidget{
 
 	private RadioCrystalGui gui;
 
-	public char[] allowedChar = new char[33];
+	public char[] allowedChar = new char[44];
 
 	// static in order to maintain the values during the update process
 	public static ArrayList<String> link = new ArrayList<String>();
+	
 	private static boolean is2nd = false;
 
-	private String allowedChars = "abcdefghijklmnopqrstuvwxyz!/()=?.";
+	private String allowedChars = "abcdefghijklmnopqrstuvwxyz!/()=?.:1234567890";
 
 	public int midX;
 	public int midY;
 	public int index;
-
+	
+	public URLsHandler handler;
 
 	public LinkGui(EntityPlayer ply, int index){
 		super();
@@ -46,7 +51,7 @@ public class LinkGui extends GuiScreenWidget{
 	}
 
 	public LinkGui(){
-		if ( is2nd == false ){
+		if (is2nd == false){
 			for(int j = 0; j < 4; j++){
 				//	link.set(j, "--");
 				link.add("--");
@@ -76,6 +81,10 @@ public class LinkGui extends GuiScreenWidget{
 		}
 		
 		insertField.setFocused(true);
+		
+		handler = new URLsHandler(link);
+		
+		Main.log.info("UrlsHandler(urls)(save): " + URLsHandler.urls);
 
 		//D	Main.log.info("MidX/MidY: " + midX + " " + midY);
 		//D	Main.log.info("Width/Height: " + width +" " + height);
@@ -101,13 +110,21 @@ public class LinkGui extends GuiScreenWidget{
 		}else if(ident.equals("saveLink")){
 
 			//D	Main.log.info(index);
-			Main.log.info("LinkAt (Before): " + index +" " + link.get(index));
+	//D		Main.log.info("LinkAt (Before): " + index + " " + link.get(index));
 
 			link.set(index, insertField.getText());
 
-			Main.log.info("LinkAt (After): " + link.get(index));
-			Main.log.info("LinkGui: " + link);
-			// close the modal window
+	//D		Main.log.info("LinkAt (After): " + link.get(index));
+	//D		Main.log.info("LinkGui: " + link);
+
+			for(int i = 0; i < link.size();i++){
+				Main.list.add(0, link.get(i));
+				
+				Main.log.info(Main.list);
+			}
+			
+			handler.writeLink(link.get(index) + "\n");
+			
 			player.openGui(Main.instance, References.GUI_CRYSTAL_ID, player.worldObj, (int)player.posX, (int)player.posY, (int)player.posZ);
 
 		}else if(ident.equals("resetLink")){
@@ -118,16 +135,12 @@ public class LinkGui extends GuiScreenWidget{
 
 		}else if(ident.equals("quitGui")){
 
-			Main.log.info("LinkAt (Before): " + link.get(index));
-			Main.log.info("IF (Before): " + insertField.getText());
+	//D		Main.log.info("LinkAt (Before): " + link.get(index));
+	//D		Main.log.info("IF (Before): " + insertField.getText());
 
-			// non serve link.set(index, insertField.getText());
+	//D		Main.log.info("IF (After): " + insertField.getText());
+	//D		Main.log.info("LinkAt (After): " + link.get(index));
 
-			Main.log.info("IF (After): " + insertField.getText());
-			Main.log.info("LinkAt (After): " + link.get(index));
-
-
-			// gui.initGui();
 			player.openGui(Main.instance, References.GUI_CRYSTAL_ID, player.worldObj, (int)player.posX, (int)player.posY, (int)player.posZ);
 
 		}
