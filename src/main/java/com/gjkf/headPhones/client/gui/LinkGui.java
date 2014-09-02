@@ -123,7 +123,11 @@ public class LinkGui extends GuiScreenWidget{
 				Main.log.info(Main.list);
 			}
 			
-			handler.writeLink(link.get(index) + "\n");
+			handler.initWriter();
+			for(int i = 0; i < link.size();i++){
+				handler.writeLink(link.get(index));
+			}
+			handler.closeWriter();
 			
 			player.openGui(Main.instance, References.GUI_CRYSTAL_ID, player.worldObj, (int)player.posX, (int)player.posY, (int)player.posZ);
 

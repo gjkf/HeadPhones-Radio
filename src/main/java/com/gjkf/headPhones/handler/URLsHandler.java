@@ -29,29 +29,8 @@ public class URLsHandler {
 		urls.add("");
 		urls.add("");
 		urls.add("");
-		
-		try {
-			try {
-				writer = new BufferedWriter(new FileWriter(urlsFile));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 
-			writer.write("");
-			
-			Main.log.info("Succesfully written into the file");
 
-		}catch (IOException e) {
-			e.printStackTrace();
-		}finally{
-			try{
-				//Closes the writer
-
-				writer.close();
-			}catch(Exception e){
-				e.printStackTrace();
-			}
-		}
 
 		/*
 		 * Sets the content of the arrayList of this class like the arrayList that I pass as parameter of the constructor
@@ -62,50 +41,69 @@ public class URLsHandler {
 		}
 
 		Main.log.info("URLsHandler(urls): " + urls);
-		
-		
 
+	}
+
+	public void initReader(){
+		
 		try {
 			reader = new BufferedReader(new FileReader(urlsFile));
 		}catch (FileNotFoundException e){
 			e.printStackTrace();
 		}
-
+		
 	}
 	
+	public void initWriter(){
+
+		try{
+			writer = new BufferedWriter(new FileWriter(urlsFile));
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+
+		Main.log.info("Succesfully initialized writer");
+	}
+	
+	public void closeReader(){
+		
+		try{
+			reader.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+	}
+
+	public void closeWriter(){
+		try{
+			writer.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		Main.log.info("Succesfully closed the writer");
+	}
+
 	public void writeLink(String link){
 		
-		/*
-		 * Instantiate a writer 
-		 */
-
 		try {
-			try {
-				writer = new BufferedWriter(new FileWriter(urlsFile));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			initWriter();
 
-			writer.write(link);
-			
+			writer.write(link + "\n");
+
 			Main.log.info("Succesfully written into the file");
 
 		}catch (IOException e) {
 			e.printStackTrace();
 		}finally{
-			try{
-				//Closes the writer
-
-				writer.close();
-			}catch(Exception e){
-				e.printStackTrace();
-			}
+			closeWriter();
 		}
-		
+
 	}
 
 	//TODO: Make it properly work
-	
+
 	public void deleteLink(String link){
 
 		try{

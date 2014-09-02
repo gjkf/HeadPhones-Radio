@@ -94,9 +94,11 @@ public class Main {
 					Main.log.info("Main(list): " + list);
 
 					URLsHandler url = new URLsHandler(list);
-
+					
 					log.info("Succesfully created URLsHandler");
 
+					url.initWriter();
+					url.closeWriter();
 				}
 
 
