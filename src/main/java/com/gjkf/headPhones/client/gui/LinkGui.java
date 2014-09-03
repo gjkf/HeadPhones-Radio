@@ -12,6 +12,7 @@ import com.gjkf.headPhones.reference.References;
 import com.gjkf.lib.gui.GuiGJButton;
 import com.gjkf.lib.gui.GuiGJTextField;
 import com.gjkf.lib.gui.GuiScreenWidget;
+import com.gjkf.lib.util.CommonUtils;
 
 public class LinkGui extends GuiScreenWidget{
 
@@ -23,7 +24,7 @@ public class LinkGui extends GuiScreenWidget{
 
 	public char[] allowedChar = new char[44];
 
-	// static in order to maintain the values during the update process
+// It's "static" in order to maintain the values
 	public static ArrayList<String> link = new ArrayList<String>();
 	
 	private static boolean is2nd = false;
@@ -82,12 +83,16 @@ public class LinkGui extends GuiScreenWidget{
 		
 		insertField.setFocused(true);
 		
-		handler = new URLsHandler(link);
+		handler = new URLsHandler(/*link*/);
 		
-		Main.log.info("UrlsHandler(urls)(save): " + URLsHandler.urls);
+		handler.initWriter();
+		
+		Main.log.info("Succesflly initialized the writer");
+		
+	//	Main.log.info("UrlsHandler(urls): " + URLsHandler.urls);
 
-		//D	Main.log.info("MidX/MidY: " + midX + " " + midY);
-		//D	Main.log.info("Width/Height: " + width +" " + height);
+	//D	Main.log.info("MidX/MidY: " + midX + " " + midY);
+	//D	Main.log.info("Width/Height: " + width +" " + height);
 	}
 
 	@Override
@@ -109,25 +114,13 @@ public class LinkGui extends GuiScreenWidget{
 
 		}else if(ident.equals("saveLink")){
 
-			//D	Main.log.info(index);
-	//D		Main.log.info("LinkAt (Before): " + index + " " + link.get(index));
-
 			link.set(index, insertField.getText());
-
-	//D		Main.log.info("LinkAt (After): " + link.get(index));
-	//D		Main.log.info("LinkGui: " + link);
-
+			
 			for(int i = 0; i < link.size();i++){
 				Main.list.add(0, link.get(i));
-				
-				Main.log.info(Main.list);
-			}
-			
-			handler.initWriter();
-			for(int i = 0; i < link.size();i++){
 				handler.writeLink(link.get(index));
+				Main.log.info(link.get(index));
 			}
-			handler.closeWriter();
 			
 			player.openGui(Main.instance, References.GUI_CRYSTAL_ID, player.worldObj, (int)player.posX, (int)player.posY, (int)player.posZ);
 
@@ -138,12 +131,6 @@ public class LinkGui extends GuiScreenWidget{
 			insertField.setFocused(true);
 
 		}else if(ident.equals("quitGui")){
-
-	//D		Main.log.info("LinkAt (Before): " + link.get(index));
-	//D		Main.log.info("IF (Before): " + insertField.getText());
-
-	//D		Main.log.info("IF (After): " + insertField.getText());
-	//D		Main.log.info("LinkAt (After): " + link.get(index));
 
 			player.openGui(Main.instance, References.GUI_CRYSTAL_ID, player.worldObj, (int)player.posX, (int)player.posY, (int)player.posZ);
 
