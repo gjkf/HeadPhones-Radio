@@ -27,15 +27,15 @@ public class URLsHandler {
 	}
 
 	public void initReader(){
-		
+
 		try{
 			reader = new BufferedReader(new FileReader(urlsFile));
 		}catch (FileNotFoundException e){
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	public void initWriter(){
 
 		try{
@@ -44,17 +44,17 @@ public class URLsHandler {
 			e.printStackTrace();
 		}
 
-		Main.log.info("Succesfully initialized writer");
+		//	Main.log.info("Successfully initialized writer");
 	}
-	
+
 	public void closeReader(){
-		
+
 		try{
 			reader.close();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public void closeWriter(){
@@ -63,12 +63,12 @@ public class URLsHandler {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		
-		Main.log.info("Succesfully closed the writer");
+
+		//	Main.log.info("Successfully closed the writer");
 	}
 
 	public void writeLink(String link){
-		
+
 		try {
 			initWriter();
 
@@ -106,19 +106,23 @@ public class URLsHandler {
 		}
 
 	}
-	
-	public void readLink(){
-		
-	//	initReader();
-		
+
+	public String readAll(){
+
 		try{
+			initReader();
+
 			while(reader.readLine() != null){
-				urls.add(reader.readLine());
+				return reader.readLine();
 			}
 		}catch(IOException e) {
 			e.printStackTrace();
+		}finally{
+			closeReader();
 		}
-		
+
+		return null;
+
 	}
 
 }

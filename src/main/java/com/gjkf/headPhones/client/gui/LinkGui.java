@@ -7,6 +7,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import net.minecraft.entity.player.EntityPlayer;
 
 import com.gjkf.headPhones.Main;
+import com.gjkf.headPhones.connection.URLConnection;
 import com.gjkf.headPhones.handler.URLsHandler;
 import com.gjkf.headPhones.reference.References;
 import com.gjkf.lib.gui.GuiGJButton;
@@ -27,6 +28,8 @@ public class LinkGui extends GuiScreenWidget{
 // It's "static" in order to maintain the values
 	public static ArrayList<String> link = new ArrayList<String>();
 	
+	public static ArrayList<String> read = new ArrayList<String>();
+	
 	private static boolean is2nd = false;
 
 	private String allowedChars = "abcdefghijklmnopqrstuvwxyz!/()=?.:1234567890";
@@ -43,7 +46,7 @@ public class LinkGui extends GuiScreenWidget{
 		this.index = index;
 
 		gui = new RadioCrystalGui(player);
-		if ( is2nd == false ){
+		if(is2nd == false){
 			for(int j = 0; j < 4; j++){
 				link.add(j, "--");
 			}
@@ -52,10 +55,11 @@ public class LinkGui extends GuiScreenWidget{
 	}
 
 	public LinkGui(){
-		if (is2nd == false){
+		if(is2nd == false){
 			for(int j = 0; j < 4; j++){
-				//	link.set(j, "--");
 				link.add("--");
+				read.add("--");
+				Main.log.info(read);
 			}
 			is2nd = true;
 		}
@@ -74,7 +78,7 @@ public class LinkGui extends GuiScreenWidget{
 		
 		insertField = new GuiGJTextField(midX + 10, midY + 60, 150, 15, "").setAllowedCharacters(allowedChar).setMaxStringLength(100);
 
-		// sets the value of the insert field
+		// Sets the value of the insert field
 		if(!link.get(index).equals("--")){
 			insertField.setText(link.get(index));
 		}else{
@@ -86,10 +90,9 @@ public class LinkGui extends GuiScreenWidget{
 		handler = new URLsHandler(/*link*/);
 		
 		handler.initWriter();
+		handler.initReader();
 		
-		Main.log.info("Succesflly initialized the writer");
-		
-	//	Main.log.info("UrlsHandler(urls): " + URLsHandler.urls);
+		Main.log.info("Successfully initialized the writer and reader");
 
 	//D	Main.log.info("MidX/MidY: " + midX + " " + midY);
 	//D	Main.log.info("Width/Height: " + width +" " + height);
@@ -110,16 +113,27 @@ public class LinkGui extends GuiScreenWidget{
 	public void actionPerformed(String ident, Object ... params){
 		if(ident.equals("connectTo")){
 
+			URLConnection urlC = new URLConnection("http://files.minecraftforge.net/");
+			
 			Main.log.info("Connecting to: " + insertField.getText());
 
 		}else if(ident.equals("saveLink")){
 
 			link.set(index, insertField.getText());
 			
+			String s;
+			
 			for(int i = 0; i < link.size();i++){
 				Main.list.add(0, link.get(i));
+				s = handler.readAll();
+				read.set(i, s);
+				Main.log.info("Read[]: " + read);
+				Main.log.info("Read: " + s);
+				
 				handler.writeLink(link.get(index));
+				
 				Main.log.info(link.get(index));
+				Main.log.info("Reader: " + s);
 			}
 			
 			player.openGui(Main.instance, References.GUI_CRYSTAL_ID, player.worldObj, (int)player.posX, (int)player.posY, (int)player.posZ);

@@ -92,6 +92,7 @@ public class Main {
 					}
 
 					Main.log.info("Main(list): " + list);
+					
 
 					URLsHandler url = new URLsHandler(/*list*/);
 					
