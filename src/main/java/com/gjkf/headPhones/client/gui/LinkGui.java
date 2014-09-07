@@ -45,6 +45,8 @@ public class LinkGui extends GuiScreenWidget{
 	public URLsHandler handler;
 	
 	public static URLConnection urlConnection;
+	
+	public KeyInputEventHandler key;
 
 	public LinkGui(EntityPlayer ply, int index){
 		super();
@@ -99,6 +101,8 @@ public class LinkGui extends GuiScreenWidget{
 		handler.initReader();
 		
 		Main.log.info("Successfully initialized the writer and reader");
+		
+		key = new KeyInputEventHandler();
 
 	//D	Main.log.info("MidX/MidY: " + midX + " " + midY);
 	//D	Main.log.info("Width/Height: " + width +" " + height);
@@ -132,11 +136,10 @@ public class LinkGui extends GuiScreenWidget{
 				
 				urlConnection.start();
 				
-				this.isPlaying = !this.isPlaying();
+				setPlaying(!isPlaying());
 				
-				Main.log.info("Link PLaying: " + this.isPlaying());
-				
-				KeyInputEventHandler key = new KeyInputEventHandler();
+				Main.log.info("Link PLaying(meth): " + this.isPlaying());
+				Main.log.info("Link PLaying(var): " + this.isPlaying);
 				
 				key.setPlaying(isPlaying());
 				
