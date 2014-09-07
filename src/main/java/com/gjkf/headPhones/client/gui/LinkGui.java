@@ -2,12 +2,15 @@ package com.gjkf.headPhones.client.gui;
 
 import java.util.ArrayList;
 
+import javazoom.jl.decoder.JavaLayerException;
+
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 
 import net.minecraft.entity.player.EntityPlayer;
 
 import com.gjkf.headPhones.Main;
 import com.gjkf.headPhones.connection.URLConnection;
+import com.gjkf.headPhones.handler.KeyInputEventHandler;
 import com.gjkf.headPhones.handler.URLsHandler;
 import com.gjkf.headPhones.reference.References;
 import com.gjkf.lib.gui.GuiGJButton;
@@ -31,6 +34,7 @@ public class LinkGui extends GuiScreenWidget{
 	public static ArrayList<String> read = new ArrayList<String>();
 	
 	private static boolean is2nd = false;
+	public static boolean isPlaying = false;
 
 	private String allowedChars = "abcdefghijklmnopqrstuvwxyz!/()=?.:1234567890";
 
@@ -39,6 +43,8 @@ public class LinkGui extends GuiScreenWidget{
 	public int index;
 	
 	public URLsHandler handler;
+	
+	public static URLConnection urlConnection;
 
 	public LinkGui(EntityPlayer ply, int index){
 		super();
@@ -68,7 +74,7 @@ public class LinkGui extends GuiScreenWidget{
 
 	@Override
 	public void initGui(){
-
+		
 		for(int i = 0; i<allowedChars.length();i++){
 			allowedChar[i] = allowedChars.charAt(i);
 		}
@@ -113,7 +119,30 @@ public class LinkGui extends GuiScreenWidget{
 	public void actionPerformed(String ident, Object ... params){
 		if(ident.equals("connectTo")){
 
-			URLConnection urlC = new URLConnection("http://files.minecraftforge.net/");
+			/*
+			 * This will use my URLDConnection class in order to connect to the given link
+			 */
+			
+			try{
+				urlConnection = new URLConnection(insertField.getText());
+				
+				/*
+				 * Starts the thread that connects to the given radio and plays the music
+				 */
+				
+				urlConnection.start();
+				
+				this.isPlaying = !this.isPlaying();
+				
+				Main.log.info("Link PLaying: " + this.isPlaying());
+				
+				KeyInputEventHandler key = new KeyInputEventHandler();
+				
+				key.setPlaying(isPlaying());
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
 			
 			Main.log.info("Connecting to: " + insertField.getText());
 
@@ -158,6 +187,14 @@ public class LinkGui extends GuiScreenWidget{
 
 	public String getLinkAt(int index){
 		return link.get(index);
+	}
+	
+	public boolean isPlaying(){
+		return isPlaying;
+	}
+	
+	public void setPlaying(boolean state){
+		this.isPlaying = state;
 	}
 
 }
