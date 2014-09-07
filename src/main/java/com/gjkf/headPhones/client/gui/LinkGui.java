@@ -120,7 +120,7 @@ public class LinkGui extends GuiScreenWidget{
 		if(ident.equals("connectTo")){
 
 			/*
-			 * This will use my URLDConnection class in order to connect to the given link
+			 * This will use my URLConnection class in order to connect to the given link
 			 */
 			
 			try{
