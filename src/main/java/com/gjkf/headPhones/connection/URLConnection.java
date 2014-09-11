@@ -8,7 +8,11 @@ import javazoom.jl.player.Player;
 
 public class URLConnection extends Thread{
 
+	public static boolean shouldBeRunning = true;
+	
 	public String url;
+	
+	public Player player = null;
 	
 	public URLConnection(String link){
 		this.setDaemon(true);
@@ -19,21 +23,32 @@ public class URLConnection extends Thread{
 
 	@Override
 	public void run(){
-		
-		try{
-			// Connection
-			java.net.URLConnection urlConnection = new URL(url).openConnection();
+		while(!this.isInterrupted()){
+			try{
+				// Connection
+				java.net.URLConnection urlConnection = new URL(url).openConnection();
 
-			// Connecting
-			urlConnection.connect();
+				// Connecting
+				urlConnection.connect();
 
-			// Playing
-			Player player = new Player (urlConnection.getInputStream());
-			player.play();
-		}catch(Exception e){
-			e.printStackTrace();
+				// Playing
+				player = new Player (urlConnection.getInputStream());
+				player.play();
+				/*if(!shouldBeRunning){
+					player.close();
+				}*/
+			}catch(Exception e){
+				e.printStackTrace();
+				if(e.equals(new InterruptedException())){
+					player.close();
+				}
+			}
 		}
 		
+	}
+	
+	public void cancel(){
+		this.shouldBeRunning = false;
 	}
 	
 }

@@ -33,27 +33,32 @@ public class KeyInputEventHandler {
 	public void handleKeyInputEvent(InputEvent.KeyInputEvent event){
 
 		if(getPressedKeyBinding() == Key.PLAY){
-			
+
 			linkGui = new LinkGui();
 			playing = linkGui.isPlaying();
 
 			Main.log.info("Is Playing: " + linkGui.isPlaying());
 
 			Main.log.info("Is Playing(Link): " + linkGui.isPlaying);
-
-			if(playing){
-				linkGui.setPlaying(false);
-				Main.log.info("Stopped Playing");
-				playing = false;
-				linkGui.urlConnection.setPriority(linkGui.urlConnection.getPriority() - 1);
-			//	linkGui.urlConnection.interrupt();
-				linkGui.urlConnection.stop();
-			}else{
-				linkGui.setPlaying(true);
-				Main.log.info("Started Playing");
-				playing = true;
-				linkGui.urlConnection.setPriority(linkGui.urlConnection.getPriority() - 1);
-				linkGui.urlConnection.notify();
+			try{
+				if(playing){
+					linkGui.setPlaying(false);
+					Main.log.info("Stopped Playing");
+					playing = false;
+				//	linkGui.urlConnection.setPriority(linkGui.urlConnection.getPriority() - 1);
+					linkGui.urlConnection.interrupt();
+					linkGui.urlConnection.stop();
+					linkGui.urlConnection.cancel();
+				}else{
+					linkGui.setPlaying(true);
+					Main.log.info("Started Playing");
+					playing = true;
+				//	linkGui.urlConnection.start();
+				//	linkGui.urlConnection.setPriority(java.lang.Thread.MIN_PRIORITY);
+					linkGui.urlConnection.run();
+				}
+			}catch(Exception e){
+				e.printStackTrace();
 			}
 
 		}
