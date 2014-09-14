@@ -44,19 +44,16 @@ public class KeyInputEventHandler {
 				if(playing){
 					linkGui.setPlaying(false);
 					Main.log.info("Stopped Playing");
-					playing = false;
-				//	linkGui.urlConnection.interrupt();
-				//	linkGui.urlConnection.stop();
+					setPlaying(false);
 					linkGui.urlConnection.cancel();
 					linkGui.urlConnection.disconnect();
+					linkGui.urlConnection.kill();
 				}else{
 					linkGui.setPlaying(true);
 					Main.log.info("Started Playing");
-					playing = true;
-				//	linkGui.urlConnection.setPriority(java.lang.Thread.MIN_PRIORITY);
-				//	linkGui.urlConnection.run();
-					linkGui.urlConnection.begin();
-					linkGui.urlConnection.connect();
+					setPlaying(true);
+					linkGui.urlConnection.kill();
+					linkGui.urlConnection.init();
 				}
 			}catch(Exception e){
 				e.printStackTrace();

@@ -1,6 +1,7 @@
 package com.gjkf.headPhones.connection;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import javazoom.jl.decoder.JavaLayerException;
@@ -18,7 +19,7 @@ public class URLConnection extends Thread{
 
 	public URLConnection(String link){
 		this.setDaemon(true);
-		this.setName("headPhonesRadio Url Connecter Thread");
+		this.setName("HeadPhonesRadio Url Connector Thread");
 
 		this.url = link;
 	}
@@ -26,20 +27,16 @@ public class URLConnection extends Thread{
 	@Override
 	public void run(){
 		try{
-			// Connection
-			urlConnection = new URL(url).openConnection();
+			init();
+		//	player = new Player (urlConnection.getInputStream());
 
-			// Connecting
-			urlConnection.connect();
+			if(shouldBeRunning){
+				connect();
+			}else{
+				disconnect();
+				kill();
+			}
 
-			// Playing
-			player = new Player (urlConnection.getInputStream());
-			//player.play();
-			this.connect();
-			
-			/*if(!shouldBeRunning){
-				player.close();
-			}*/
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -49,11 +46,11 @@ public class URLConnection extends Thread{
 	public void cancel(){
 		this.shouldBeRunning = false;
 	}
-	
+
 	public void begin(){
 		this.shouldBeRunning = true;
 	}
-	
+
 	public void connect() throws IOException, JavaLayerException{
 		this.urlConnection.connect();
 		this.player.play();
@@ -64,4 +61,22 @@ public class URLConnection extends Thread{
 		this.urlConnection.getInputStream().close();
 	}
 
+	public void init() throws MalformedURLException, IOException, JavaLayerException{
+		if(urlConnection == null){
+			urlConnection = new URL(url).openConnection();
+			System.err.println(urlConnection.toString());
+		}
+		if(player == null){
+			player = new Player (urlConnection.getInputStream());
+			System.err.println(player.toString());
+		}
+		connect();
+		begin();
+	}
+
+	public void kill() throws IOException{
+		urlConnection = null;
+		player = null;
+	}
+	
 }
