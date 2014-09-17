@@ -47,7 +47,7 @@ public class RadioCrystalGui extends GuiScreenWidget{
 		btn2 = new GuiGJButton(midX + 62, midY + 95, 44, 20, linkGui.getLinkAt(2)).setActionCommand("openLinkGui2");
 		btn3 = new GuiGJButton(midX + 62, midY + 125, 44, 20, linkGui.getLinkAt(3)).setActionCommand("openLinkGui3");
 		
-		/*  bho
+		/*
 		if(is2nd){
 			Main.log.info("Is2nd: " + is2nd);
 			Main.log.info("Link0: " + linkGui.getLinkAt(0));

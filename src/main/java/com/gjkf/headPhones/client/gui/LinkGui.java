@@ -138,8 +138,8 @@ public class LinkGui extends GuiScreenWidget{
 				
 				setPlaying(true);
 				
-				Main.log.info("Link PLaying(meth): " + this.isPlaying());
-				Main.log.info("Link PLaying(var): " + this.isPlaying);
+			//	Main.log.info("Link PLaying(meth): " + this.isPlaying());
+			//	Main.log.info("Link PLaying(var): " + this.isPlaying);
 				
 				key.setPlaying(isPlaying());
 				

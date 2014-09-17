@@ -17,6 +17,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class KeyInputEventHandler { 
 
+	/*
+	 * http://streaming202.radionomy.com:80/abacusfm-vintage-jazz
+	 */
+	
 	public boolean playing;
 
 	public LinkGui linkGui = null;
@@ -37,23 +41,30 @@ public class KeyInputEventHandler {
 			linkGui = new LinkGui();
 			playing = linkGui.isPlaying();
 
-			Main.log.info("Is Playing: " + linkGui.isPlaying());
+		//	Main.log.info("Is Playing: " + linkGui.isPlaying());
 
-			Main.log.info("Is Playing(Link): " + linkGui.isPlaying);
+		//	Main.log.info("Is Playing(Link): " + linkGui.isPlaying);
 			try{
 				if(playing){
 					linkGui.setPlaying(false);
 					Main.log.info("Stopped Playing");
 					setPlaying(false);
-					linkGui.urlConnection.cancel();
+					
+					Main.log.info("Playing: " + playing);
+					
 					linkGui.urlConnection.disconnect();
 					linkGui.urlConnection.kill();
 				}else{
 					linkGui.setPlaying(true);
 					Main.log.info("Started Playing");
 					setPlaying(true);
+					
+					Main.log.info("Playing: " + playing);
+					
+				//	linkGui.urlConnection.start();
 					linkGui.urlConnection.kill();
 					linkGui.urlConnection.init();
+					linkGui.urlConnection.pc.unpause();
 				}
 			}catch(Exception e){
 				e.printStackTrace();
