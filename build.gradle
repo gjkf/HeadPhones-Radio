@@ -27,7 +27,7 @@ minecraft {
 }
 
 dependencies {
-	compile files("/Users/Davide/Desktop/My Mods/GjkfLib/build/libs/gjkfLib-0.2.5.17-deobf.jar")
+	compile files("/Users/Davide/Desktop/My Mods/GjkfLib/build/libs/gjkfLib-0.2.5.19-deobf.jar")
 	compile files("/Users/Davide/Desktop/eclipse related/JLayer1.0.1/jl1.0.1.jar")
 }
 
